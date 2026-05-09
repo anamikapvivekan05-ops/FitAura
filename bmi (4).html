@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMI Calculator – FitAura</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green:#2d6a4f; --green-mid:#40916c; --green-light:#52b788;
+  --green-pale:#d8f3dc; --gold:#c9a84c; --cream:#f6f9f8;
+  --dark:#111a14; --mid:#4a5568; --white:#fff;
+  --shadow:0 10px 40px rgba(0,0,0,0.10);
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--dark);overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 6%;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(16px);
+  box-shadow:0 2px 20px rgba(0,0,0,0.07);
+}
+.nav-logo{font-size:24px;font-weight:800;color:var(--green);text-decoration:none;}
+.nav-logo span{color:var(--green-light);}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{font-size:14px;font-weight:500;color:var(--mid);text-decoration:none;transition:color 0.3s;}
+.nav-links a:hover,.nav-links a.active{color:var(--green);}
+.nav-cta{padding:9px 22px;background:var(--green);color:white;border-radius:50px;font-size:13px;font-weight:600;text-decoration:none;transition:background 0.3s;}
+.nav-cta:hover{background:var(--green-light);}
+
+/* ── HERO ── */
+.hero{
+  position:relative;height:52vh;min-height:320px;
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  background:linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.45)),
+    url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1400') center/cover no-repeat;
+  border-radius:0 0 40px 40px;
+  overflow:hidden;
+}
+.hero-content{position:relative;z-index:2;animation:fadeUp 0.9s ease both;}
+.hero-eyebrow{
+  display:inline-block;font-size:11px;font-weight:600;letter-spacing:3px;
+  text-transform:uppercase;color:var(--green-light);
+  background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);
+  padding:7px 18px;border-radius:50px;margin-bottom:18px;
+}
+.hero h1{font-size:clamp(32px,5vw,58px);font-weight:900;color:white;letter-spacing:-1px;margin-bottom:10px;}
+.hero p{font-size:16px;color:rgba(255,255,255,0.75);max-width:420px;margin:0 auto;}
+
+/* ── BMI SECTION ── */
+.bmi-section{padding:60px 6%;max-width:1100px;margin:0 auto;}
+.bmi-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;}
+
+/* calculator card */
+.calc-card{
+  background:white;border-radius:24px;padding:40px 36px;
+  box-shadow:var(--shadow);border-top:5px solid var(--green);
+}
+.calc-card h2{font-size:22px;font-weight:700;color:var(--dark);margin-bottom:6px;}
+.calc-card .subtitle{font-size:13.5px;color:var(--mid);margin-bottom:28px;}
+
+.unit-toggle{display:flex;gap:0;margin-bottom:24px;border-radius:12px;overflow:hidden;border:2px solid var(--green-pale);}
+.unit-btn{
+  flex:1;padding:10px;font-size:13px;font-weight:600;
+  background:transparent;color:var(--mid);border:none;cursor:pointer;
+  transition:background 0.3s,color 0.3s;font-family:'Poppins',sans-serif;
+}
+.unit-btn.active{background:var(--green);color:white;}
+
+.input-group{margin-bottom:16px;}
+.input-group label{display:block;font-size:12.5px;font-weight:600;color:var(--mid);margin-bottom:6px;letter-spacing:0.5px;}
+.input-group input{
+  width:100%;padding:13px 16px;border:2px solid #e8f0ed;border-radius:12px;
+  font-size:14px;font-family:'Poppins',sans-serif;color:var(--dark);
+  transition:border-color 0.3s,box-shadow 0.3s;background:var(--cream);
+}
+.input-group input:focus{outline:none;border-color:var(--green-light);box-shadow:0 0 0 3px rgba(82,183,136,0.15);}
+
+.metric-inputs,.imperial-inputs{display:none;}
+.metric-inputs.show,.imperial-inputs.show{display:block;}
+
+.calc-btn{
+  width:100%;padding:14px;background:linear-gradient(135deg,var(--green),var(--green-light));
+  color:white;border:none;border-radius:14px;font-size:15px;font-weight:700;
+  cursor:pointer;transition:all 0.3s;font-family:'Poppins',sans-serif;
+  box-shadow:0 6px 20px rgba(45,106,79,0.3);margin-top:4px;
+}
+.calc-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(45,106,79,0.4);}
+
+/* result */
+#result-box{
+  margin-top:20px;padding:18px 20px;
+  border-radius:14px;background:var(--green-pale);
+  font-size:14.5px;font-weight:600;color:var(--green);
+  display:none;border-left:4px solid var(--green);
+  animation:fadeUp 0.5s ease;
+}
+#bmi-meter{margin-top:14px;display:none;}
+.meter-bar{height:10px;border-radius:50px;background:linear-gradient(90deg,#3a9ad9 0%,#52b788 30%,#f0b429 65%,#e53e3e 100%);position:relative;margin-bottom:6px;}
+.meter-pointer{
+  position:absolute;top:-4px;width:18px;height:18px;
+  border-radius:50%;background:white;border:3px solid var(--dark);
+  transform:translateX(-50%);transition:left 0.8s cubic-bezier(.4,2,.3,1);
+}
+.meter-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--mid);}
+
+/* action btns */
+.action-btns{display:flex;gap:12px;margin-top:16px;}
+.action-btn{
+  flex:1;padding:11px;border:none;border-radius:12px;font-size:13px;font-weight:600;
+  cursor:pointer;font-family:'Poppins',sans-serif;transition:all 0.3s;
+}
+.btn-save{background:var(--green);color:white;}
+.btn-save:hover{background:var(--green-mid);}
+.btn-view{background:var(--green-pale);color:var(--green);}
+.btn-view:hover{background:#b7e4c7;}
+
+/* info card */
+.info-card{background:white;border-radius:24px;padding:36px;box-shadow:var(--shadow);}
+.info-card h3{font-size:18px;font-weight:700;margin-bottom:20px;color:var(--dark);}
+
+.bmi-range-item{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 16px;border-radius:12px;margin-bottom:10px;
+  background:var(--cream);transition:transform 0.2s;
+}
+.bmi-range-item:hover{transform:translateX(4px);}
+.range-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0;}
+.range-info{flex:1;}
+.range-label{font-size:14px;font-weight:600;color:var(--dark);}
+.range-val{font-size:12px;color:var(--mid);margin-top:2px;}
+.range-tip{font-size:11.5px;color:var(--mid);line-height:1.5;margin-top:6px;padding:8px 12px;background:white;border-radius:8px;}
+
+/* diet suggestion cards */
+.diet-cards{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap;}
+.diet-card{
+  flex:1;min-width:120px;background:white;border-radius:16px;padding:20px 16px;
+  text-align:center;box-shadow:0 4px 16px rgba(0,0,0,0.07);
+  cursor:pointer;transition:transform 0.3s,box-shadow 0.3s;
+  text-decoration:none;color:var(--dark);border:2px solid transparent;
+}
+.diet-card:hover{transform:translateY(-5px);box-shadow:0 12px 30px rgba(45,106,79,0.14);border-color:var(--green-light);}
+.diet-card .diet-icon{font-size:28px;margin-bottom:8px;}
+.diet-card h4{font-size:13px;font-weight:700;margin-bottom:4px;}
+.diet-card p{font-size:11.5px;color:var(--mid);}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.65s,transform 0.65s;}
+.reveal.up{opacity:1;transform:none;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:860px){
+  .bmi-grid{grid-template-columns:1fr;}
+  .nav-links{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">Fit<span>Aura</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="bmi (4).html" class="active">BMI</a></li>
+    <li><a href="web35_enhanced (1).html">Diet</a></li>
+    <li><a href="wellness (3).html">Wellness</a></li>
+    <li><a href="progress (2).html">Progress</a></li>
+    <li><a href="Aboutus.html">About Us</a></li>
+  </ul>
+  <a href="web35_enhanced (1).html" class="nav-cta">Diet Plans →</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">FitAura · Health Check</div>
+    <h1>Transform Your Health</h1>
+    <p>Track your BMI and discover the right diet plan for your body</p>
+  </div>
+</div>
+
+<!-- BMI SECTION -->
+<div class="bmi-section">
+  <div class="bmi-grid">
+
+    <!-- CALCULATOR -->
+    <div class="calc-card reveal">
+      <h2>BMI Calculator</h2>
+      <p class="subtitle">Enter your details below to calculate your Body Mass Index</p>
+
+      <div class="unit-toggle">
+        <button class="unit-btn active" onclick="switchUnit('metric')">⚖️ Metric (kg/cm)</button>
+        <button class="unit-btn" onclick="switchUnit('imperial')">🇺🇸 Imperial (lbs/ft)</button>
+      </div>
+
+      <div class="input-group">
+        <label>YOUR NAME</label>
+        <input type="text" id="username" placeholder="Enter your name">
+      </div>
+
+      <div class="metric-inputs show" id="metric-inputs">
+        <div class="input-group">
+          <label>WEIGHT (KG)</label>
+          <input type="number" id="weight" placeholder="e.g. 65">
+        </div>
+        <div class="input-group">
+          <label>HEIGHT (CM)</label>
+          <input type="number" id="height" placeholder="e.g. 170">
+        </div>
+      </div>
+
+      <div class="imperial-inputs" id="imperial-inputs">
+        <div class="input-group">
+          <label>WEIGHT (LBS)</label>
+          <input type="number" id="weightLbs" placeholder="e.g. 143">
+        </div>
+        <div class="input-group">
+          <label>HEIGHT (FEET)</label>
+          <input type="number" id="heightFt" placeholder="e.g. 5.6">
+        </div>
+      </div>
+
+      <button class="calc-btn" onclick="calculateBMI()">Calculate My BMI</button>
+
+      <div id="result-box"></div>
+
+      <div id="bmi-meter">
+        <div class="meter-bar"><div class="meter-pointer" id="meter-pointer"></div></div>
+        <div class="meter-labels"><span>Underweight</span><span>Normal</span><span>Overweight</span><span>Obese</span></div>
+      </div>
+
+      <div class="action-btns" id="action-btns" style="display:none;">
+        <button class="action-btn btn-save" onclick="saveBMI()">💾 Save Progress</button>
+       <button class="action-btn btn-view" onclick="goToHistory()">📊 View History</button>
+      </div>
+    </div> 
+
+    <!-- INFO -->
+    <div class="info-card reveal" style="transition-delay:.1s">
+      <h3>Understanding Your BMI</h3>
+
+      <div class="bmi-range-item">
+        <div class="range-dot" style="background:#3a9ad9"></div>
+        <div class="range-info">
+          <div class="range-label">Underweight</div>
+          <div class="range-val">BMI below 18.5</div>
+          <div class="range-tip">Consider a weight gain plan with calorie-dense, nutritious foods.</div>
+        </div>
+      </div>
+
+      <div class="bmi-range-item">
+        <div class="range-dot" style="background:#52b788"></div>
+        <div class="range-info">
+          <div class="range-label">Normal Weight ✅</div>
+          <div class="range-val">BMI 18.5 – 24.9</div>
+          <div class="range-tip">Great! Maintain with a balanced diet and regular activity.</div>
+        </div>
+      </div>
+
+      <div class="bmi-range-item">
+        <div class="range-dot" style="background:#f0b429"></div>
+        <div class="range-info">
+          <div class="range-label">Overweight</div>
+          <div class="range-val">BMI 25 – 29.9</div>
+          <div class="range-tip">A calorie-deficit diet with increased activity can help.</div>
+        </div>
+      </div>
+
+      <div class="bmi-range-item">
+        <div class="range-dot" style="background:#e53e3e"></div>
+        <div class="range-info">
+          <div class="range-label">Obese</div>
+          <div class="range-val">BMI 30 and above</div>
+          <div class="range-tip">Consult a healthcare professional alongside a weight loss plan.</div>
+        </div>
+      </div>
+
+      <h3 style="margin-top:28px;margin-bottom:14px;">Choose Your Diet Plan</h3>
+      <div class="diet-cards">
+        <a class="diet-card" href="web35_enhanced (1).html">
+          <div class="diet-icon">🥗</div>
+          <h4>Weight Loss</h4>
+          <p>For Overweight BMI</p>
+        </a>
+        <a class="diet-card" href="web35_enhanced (1).html">
+          <div class="diet-icon">💪</div>
+          <h4>Weight Gain</h4>
+          <p>For Underweight BMI</p>
+        </a>
+        <a class="diet-card" href="web35_enhanced (1).html">
+          <div class="diet-icon">⚖️</div>
+          <h4>Balanced</h4>
+          <p>For Healthy BMI</p>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+let currentUnit = 'metric';
+
+function switchUnit(unit){
+  currentUnit = unit;
+  document.querySelectorAll('.unit-btn').forEach((b,i)=>{
+    b.classList.toggle('active',(i===0&&unit==='metric')||(i===1&&unit==='imperial'));
+  });
+  document.getElementById('metric-inputs').classList.toggle('show', unit==='metric');
+  document.getElementById('imperial-inputs').classList.toggle('show', unit==='imperial');
+}
+
+function calculateBMI(){
+  let name    = document.getElementById('username').value || 'Friend';
+  let weight  = parseFloat(document.getElementById('weight').value);
+  let height  = parseFloat(document.getElementById('height').value);
+  let wLbs    = parseFloat(document.getElementById('weightLbs').value);
+  let hFt     = parseFloat(document.getElementById('heightFt').value);
+  let bmi;
+
+  if(currentUnit==='metric' && weight && height){
+    bmi = weight / ((height/100)**2);
+  } else if(currentUnit==='imperial' && wLbs && hFt){
+    let hIn = hFt * 12;
+    bmi = (wLbs / (hIn*hIn)) * 703;
+  } else {
+    showResult('⚠️ Please enter your weight and height!','#f0b429');
+    return;
+  }
+
+  bmi = bmi.toFixed(1);
+  let msg='', color='';
+  let pct=0;
+
+  if(bmi < 18.5){
+    msg=`Underweight 💙 — A Weight Gain diet is recommended for you.`;
+    color='#3a9ad9'; pct=10;
+  } else if(bmi<=24.9){
+    msg=`Normal Weight ✅ — You are healthy! Keep it up with a Balanced diet.`;
+    color='#52b788'; pct=38;
+  } else if(bmi<=29.9){
+    msg=`Overweight ⚠️ — A Weight Loss diet can help you reach your goal.`;
+    color='#f0b429'; pct=65;
+  } else {
+    msg=`Obese 🔴 — Please consult a doctor and consider a Weight Loss plan.`;
+    color='#e53e3e'; pct=88;
+  }
+
+  let box = document.getElementById('result-box');
+  box.innerHTML = `<div style="font-size:26px;font-weight:900;color:${color};margin-bottom:6px;">BMI: ${bmi}</div>
+    <div>Dear <b>${name}</b>, ${msg}</div>`;
+  box.style.display='block';
+  box.style.borderLeftColor=color;
+  box.style.background=color+'18';
+  box.style.color=color;
+
+  // meter
+  document.getElementById('bmi-meter').style.display='block';
+  setTimeout(()=>document.getElementById('meter-pointer').style.left=pct+'%',100);
+
+  document.getElementById('action-btns').style.display='flex';
+  window._lastResult = `${name} | BMI: ${bmi} | ${msg}`;
+}
+
+function showResult(msg,color){
+  let box=document.getElementById('result-box');
+  box.innerHTML=msg; box.style.display='block';
+  box.style.borderLeftColor=color; box.style.background=color+'18'; box.style.color=color;
+}
+
+function saveBMI(){
+  if(!window._lastResult){alert('Calculate BMI first!');return;}
+  let history = JSON.parse(localStorage.getItem('bmiData'))||[];
+  history.push({data:window._lastResult, time:new Date().toLocaleString()});
+  localStorage.setItem('bmiData',JSON.stringify(history));
+  let btn=document.querySelector('.btn-save');
+  btn.textContent='✅ Saved!';
+  setTimeout(()=>btn.textContent='💾 Save Progress',2000);
+}
+
+function goToHistory() {
+  // This version handles the most common naming convention for copied files
+  window.location.href = 'progress (2).html'; 
+  
+  // If the above fails, it will try the version without the space
+  setTimeout(() => {
+    window.location.href = 'progress(2).html';
+  }, 100);
+} 
+
+// Scroll reveal
+const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('up');}),{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html> 

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diet Plans – FitAura</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --green: #2d6a4f;
+  --green-light: #52b788;
+  --green-pale: #d8f3dc;
+  --cream: #f6f9f8;
+  --dark: #1a1a1a;
+  --mid: #555;
+  --radius: 20px;
+  --shadow: 0 10px 30px rgba(0,0,0,0.09);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
+html { scroll-behavior:smooth; }
+body { background:var(--cream); color:var(--dark); overflow-x:hidden; }
+
+/* HERO */
+.hero {
+  background: linear-gradient(rgba(0,0,0,0.52),rgba(0,0,0,0.48)),
+    url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1400') center/cover no-repeat;
+  color:white;
+  text-align:center;
+  padding:80px 20px 80px;
+  border-radius:0 0 50px 50px;
+  animation: fadeDown 0.9s ease both;
+}
+.hero h1 { font-size:clamp(38px,6vw,64px); font-weight:800; letter-spacing:-1px; margin-bottom:14px; }
+.hero p { font-size:17px; color:rgba(255,255,255,0.8); max-width:480px; margin:0 auto; line-height:1.7; }
+
+/* SECTION */
+.section { padding:70px 10%; }
+.section-center { text-align:center; }
+h2 { font-size:clamp(28px,3.5vw,42px); font-weight:700; margin-bottom:12px; color:var(--dark); }
+.sub { font-size:15px; color:var(--mid); max-width:680px; margin:0 auto 40px; line-height:1.8; }
+.intro-text { font-size:16px; color:var(--mid); line-height:1.9; max-width:860px; margin:0 auto; text-align:left; }
+
+/* PLAN CARDS */
+.row-layout { display:flex; justify-content:center; gap:24px; flex-wrap:wrap; margin-top:10px; }
+
+.small-card {
+  width:270px; background:white; border-radius:var(--radius); overflow:hidden;
+  cursor:pointer; box-shadow:var(--shadow); transition:transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+  border:2px solid transparent;
+}
+.small-card:hover { transform:translateY(-6px); box-shadow:0 20px 40px rgba(45,106,79,0.15); }
+.small-card.active { border-color:var(--green); box-shadow:0 0 0 4px rgba(82,183,136,0.2); }
+.small-card img { width:100%; height:175px; object-fit:cover; display:block; }
+.small-card h3 { padding:16px 18px 6px; font-size:17px; font-weight:600; }
+.small-card .tag {
+  margin:0 18px 16px; display:inline-block; font-size:11px; font-weight:600;
+  letter-spacing:1.5px; text-transform:uppercase; color:var(--green);
+  background:var(--green-pale); padding:4px 12px; border-radius:50px;
+}
+
+/* EXPAND PANEL */
+.expand-panel {
+  max-height:0; overflow:hidden;
+  transition:max-height 0.55s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease;
+  opacity:0; margin-top:0;
+}
+.expand-panel.open { max-height:1400px; opacity:1; margin-top:36px; }
+
+.expand-inner {
+  background:white; border-radius:var(--radius); padding:40px 44px;
+  box-shadow:var(--shadow); border-left:5px solid var(--green);
+  display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:start;
+}
+.expand-inner img { width:100%; border-radius:14px; height:280px; object-fit:cover; }
+.expand-content h3 { font-size:24px; font-weight:700; margin-bottom:10px; color:var(--dark); }
+.expand-content p { font-size:14.5px; color:var(--mid); line-height:1.85; margin-bottom:14px; }
+
+.meal-table { width:100%; border-collapse:collapse; font-size:13.5px; margin-top:8px; }
+.meal-table th { background:var(--green); color:white; padding:8px 14px; text-align:left; font-weight:600; }
+.meal-table td { padding:8px 14px; border-bottom:1px solid #eee; color:#444; }
+.meal-table tr:last-child td { border-bottom:none; }
+.meal-table tr:nth-child(even) td { background:#f9fdfb; }
+
+.close-btn {
+  margin-top:18px; display:inline-block; padding:9px 22px; background:var(--green);
+  color:white; border:none; border-radius:8px; font-size:13.5px; font-weight:600;
+  cursor:pointer; font-family:'Poppins',sans-serif; transition:background 0.3s;
+}
+.close-btn:hover { background:#1f4f3a; }
+
+/* CRAVINGS BOX */
+.cravings-box {
+  background:white; border-radius:var(--radius); padding:36px 40px;
+  box-shadow:var(--shadow); font-size:15px; color:var(--mid); line-height:1.9;
+  max-width:900px; margin:20px auto 0; text-align:left;
+}
+.cravings-box p { margin-bottom:12px; }
+.cravings-box p:last-child { margin-bottom:0; }
+
+/* SUBHEADING */
+.sub-heading {
+  font-size:26px; font-weight:700; margin:60px 0 30px; color:var(--dark);
+  display:flex; align-items:center; gap:14px;
+}
+.sub-heading::after { content:''; flex:1; height:2px; background:linear-gradient(90deg,#ccc,transparent); }
+
+/* ZIGZAG */
+.zigzag { display:flex; flex-direction:column; gap:40px; }
+
+.big-card {
+  background:white; border-radius:24px; display:flex; align-items:stretch;
+  overflow:hidden; box-shadow:var(--shadow); border:1px solid #eee;
+  transition:transform 0.3s, box-shadow 0.3s; width:78%; max-width:960px;
+}
+.big-card:hover { transform:translateY(-4px); box-shadow:0 20px 40px rgba(0,0,0,0.11); }
+.zigzag .big-card:nth-child(odd)  { margin-right:auto; }
+.zigzag .big-card:nth-child(even) { margin-left:auto; flex-direction:row-reverse; }
+
+.big-card img { width:45%; min-height:300px; object-fit:cover; display:block; flex-shrink:0; }
+.card-content { padding:34px 38px; display:flex; flex-direction:column; justify-content:center; }
+.card-content h3 { font-size:26px; font-weight:700; margin-bottom:12px; color:var(--dark); }
+.card-content .speciality { font-size:14.5px; color:var(--mid); line-height:1.8; margin-bottom:16px; }
+
+.card-content .ingredients { list-style:none; font-size:13.5px; color:#333; line-height:1.7; margin-bottom:18px; }
+.card-content .ingredients li {
+  padding:4px 0; border-bottom:1px dashed #eee; display:flex; align-items:center; gap:8px;
+}
+.card-content .ingredients li::before {
+  content:''; width:7px; height:7px; border-radius:50%; background:var(--green-light); flex-shrink:0;
+}
+
+.btn {
+  display:inline-flex; align-items:center; gap:8px; padding:11px 20px;
+  background:var(--green); color:white; border-radius:9px; text-decoration:none;
+  font-size:14px; font-weight:600; transition:background 0.3s, transform 0.2s; align-self:flex-start;
+}
+.btn:hover { background:#1f4f3a; transform:scale(1.03); }
+.btn svg { width:14px; height:14px; }
+
+.prep-note { font-size:13px; color:#666; line-height:1.75; margin-top:10px; border-top:1px dashed #ddd; padding-top:10px; }
+
+/* ANIMATIONS */
+@keyframes fadeDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:none} }
+.reveal { opacity:0; transform:translateY(24px); transition:opacity 0.65s ease, transform 0.65s ease; }
+.reveal.visible { opacity:1; transform:none; }
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .expand-inner { grid-template-columns:1fr; }
+  .big-card { width:100%; flex-direction:column !important; }
+  .big-card img { width:100%; min-height:220px; }
+  .section { padding:50px 5%; }
+}
+@media(max-width:600px){
+  .small-card { width:100%; max-width:340px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav style="display:flex;justify-content:space-between;align-items:center;padding:16px 6%;background:rgba(255,255,255,0.95);backdrop-filter:blur(16px);position:sticky;top:0;z-index:200;box-shadow:0 2px 20px rgba(0,0,0,0.07);">
+  <a href="index.html" style="font-size:24px;font-weight:900;color:#2d6a4f;text-decoration:none;">Fit<span style="color:#c9a84c;">Aura</span></a>
+  <div style="display:flex;gap:26px;align-items:center;flex-wrap:wrap;">
+    <a href="index.html" style="font-size:14px;font-weight:500;color:#4a5568;text-decoration:none;">Home</a>
+    <a href="bmi (4).html" style="font-size:14px;font-weight:500;color:#4a5568;text-decoration:none;">BMI</a>
+    <a href="web35_enhanced (1).html" style="font-size:14px;font-weight:700;color:#2d6a4f;text-decoration:none;">Diet</a>
+    <a href="wellness (3).html" style="font-size:14px;font-weight:500;color:#4a5568;text-decoration:none;">Wellness</a>
+    <a href="progress (2).html" style="font-size:14px;font-weight:500;color:#4a5568;text-decoration:none;">Progress</a>
+    <a href="Aboutus.html" style="font-size:14px;font-weight:500;color:#4a5568;text-decoration:none;">About Us</a>
+    <a href="bmi (4).html" style="padding:10px 22px;background:#2d6a4f;color:white;border-radius:50px;font-size:13px;font-weight:700;text-decoration:none;">Check BMI →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Personalized Diet Plans</h1>
+  <p>Nutrition plans crafted for every lifestyle — lose, gain, or maintain, your way.</p>
+</div>
+
+<!-- BALANCED DIET INTRO -->
+<div class="section section-center reveal">
+  <h2>Understanding a Balanced Diet</h2>
+  <div class="intro-text" style="margin-top:20px;">
+    A balanced diet is the foundation of a healthy and energetic life. It provides the body with the right mix of nutrients — proteins, carbohydrates, fats, vitamins, and minerals — needed to function properly, grow, and stay strong. Eating a well-balanced diet not only supports physical health but also improves mood, concentration, and overall well-being.
+  </div>
+  <div class="intro-text" style="margin-top:14px;">
+    In today's fast-paced world, making mindful food choices can help prevent lifestyle-related issues and boost long-term health. This platform helps you explore diet plans that fit your goals, preferences, and lifestyle — making healthy living simple and sustainable.
+  </div>
+  <div class="intro-text" style="margin-top:14px;">
+    Our website offers diet plans for <b>everyone</b> — whether you're vegetarian, vegan, or include eggs and meat in your diet. Find a plan that truly fits <i>your</i> lifestyle.
+  </div>
+</div>
+
+<!-- DIET PLAN CARDS -->
+<div class="section section-center">
+  <h2 class="reveal">Choose Your Diet Plan</h2>
+  <p class="sub reveal">Click any plan to expand and see meal ideas, benefits &amp; more — right here on the page.</p>
+
+  <div class="row-layout">
+
+    <div class="small-card reveal" id="card-loss" onclick="togglePlan('loss')">
+      <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600" alt="Weight Loss">
+      <h3>Weight Loss Diet</h3>
+      <span class="tag">For Overweight BMI</span>
+    </div>
+
+    <div class="small-card reveal" id="card-gain" onclick="togglePlan('gain')" style="transition-delay:.08s">
+      <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=600" alt="Weight Gain">
+      <h3>Weight Gain Diet</h3>
+      <span class="tag">For Underweight BMI</span>
+    </div>
+
+    <div class="small-card reveal" id="card-balance" onclick="togglePlan('balance')" style="transition-delay:.16s">
+      <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600" alt="Balanced Diet">
+      <h3>Balanced Diet</h3>
+      <span class="tag">For Healthy BMI</span>
+    </div>
+
+  </div>
+
+  <!-- EXPAND: WEIGHT LOSS -->
+  <div class="expand-panel" id="panel-loss">
+    <div class="expand-inner">
+      <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=700" alt="Weight Loss Diet">
+      <div class="expand-content">
+        <h3>Weight Loss Diet</h3>
+        <p>This plan focuses on a calorie deficit while keeping you full and nourished. High in fibre, lean proteins, and complex carbs — designed to burn fat, not muscle. Works for all dietary preferences.</p>
+        <p><b>Key principles:</b> Smaller portions, more meals, minimal refined sugar and fried food.</p>
+        <table class="meal-table">
+          <tr><th>Meal</th><th>Vegetarian</th><th>Non-Vegetarian</th></tr>
+          <tr><td>Breakfast</td><td>Oats porridge with fruits &amp; seeds</td><td>Boiled eggs &amp; whole wheat toast</td></tr>
+          <tr><td>Mid-morning</td><td>A handful of nuts or green tea</td><td>Greek yoghurt or a boiled egg</td></tr>
+          <tr><td>Lunch</td><td>Brown rice, dal, sabzi &amp; salad</td><td>Grilled chicken / fish with brown rice &amp; salad</td></tr>
+          <tr><td>Evening</td><td>Sprouts chaat or buttermilk</td><td>Tuna salad or grilled chicken strips</td></tr>
+          <tr><td>Dinner</td><td>Vegetable soup &amp; multigrain roti</td><td>Steamed fish / egg curry with vegetable soup</td></tr>
+        </table>
+        <button class="close-btn" onclick="togglePlan('loss')">✕ Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPAND: WEIGHT GAIN -->
+  <div class="expand-panel" id="panel-gain">
+    <div class="expand-inner">
+      <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=700" alt="Weight Gain Diet">
+      <div class="expand-content">
+        <h3>Weight Gain Diet</h3>
+        <p>Built around a calorie surplus with nutrient-dense, wholesome foods. Supports healthy muscle gain and steady weight increase without junk — suitable for all dietary preferences.</p>
+        <p><b>Key principles:</b> More frequent meals, healthy fats, complex carbs, and protein-rich foods.</p>
+        <table class="meal-table">
+          <tr><th>Meal</th><th>Vegetarian</th><th>Non-Vegetarian</th></tr>
+          <tr><td>Breakfast</td><td>Banana smoothie &amp; peanut butter toast</td><td>Scrambled eggs &amp; whole wheat toast with milk</td></tr>
+          <tr><td>Mid-morning</td><td>Mixed dry fruits &amp; full-fat milk</td><td>Hard-boiled eggs &amp; mixed dry fruits</td></tr>
+          <tr><td>Lunch</td><td>Rice, rajma / chole, paneer sabzi</td><td>Rice, chicken curry / fish curry &amp; salad</td></tr>
+          <tr><td>Evening</td><td>Makhana or cheese sandwich</td><td>Chicken sandwich or egg bhurji wrap</td></tr>
+          <tr><td>Dinner</td><td>Paratha with curd &amp; mixed dal</td><td>Roti with mutton / egg curry &amp; dal</td></tr>
+        </table>
+        <button class="close-btn" onclick="togglePlan('gain')">✕ Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPAND: BALANCED -->
+  <div class="expand-panel" id="panel-balance">
+    <div class="expand-inner">
+      <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=700" alt="Balanced Diet">
+      <div class="expand-content">
+        <h3>Balanced Diet</h3>
+        <p>A well-rounded plan to maintain your current healthy weight while ensuring all nutrients are covered. Perfect for staying energetic, focused, and fit every day — regardless of your food preferences.</p>
+        <p><b>Key principles:</b> Variety, moderation, and consistency across all food groups.</p>
+        <table class="meal-table">
+          <tr><th>Meal</th><th>Vegetarian</th><th>Non-Vegetarian</th></tr>
+          <tr><td>Breakfast</td><td>Idli / dosa with sambar &amp; chutney</td><td>Omelette &amp; whole wheat toast with fruit</td></tr>
+          <tr><td>Mid-morning</td><td>Seasonal fruit or yoghurt</td><td>Seasonal fruit or Greek yoghurt</td></tr>
+          <tr><td>Lunch</td><td>Roti, dal, sabzi, rice &amp; salad</td><td>Roti, grilled chicken / fish, sabzi &amp; salad</td></tr>
+          <tr><td>Evening</td><td>Herbal tea &amp; roasted snack</td><td>Herbal tea &amp; boiled egg or chicken tikka</td></tr>
+          <tr><td>Dinner</td><td>Light khichdi or vegetable pulao</td><td>Grilled fish / egg curry with light rice</td></tr>
+        </table>
+        <button class="close-btn" onclick="togglePlan('balance')">✕ Close</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- SMART CRAVINGS -->
+<div class="section">
+  <h2 class="section-center reveal">Smart Craving Substitutes</h2>
+
+  <div class="cravings-box reveal">
+    <p><b>Satisfy your cravings — the smarter, healthier way</b></p>
+    <p>We all crave something sweet or crunchy once in a while — that's completely normal. The problem isn't the craving itself, but how we usually satisfy it. Most store-bought snacks are packed with excess sugar, unhealthy fats, and artificial ingredients that don't do your body any favors.</p>
+    <p>Here, you'll find carefully selected recipes you can easily try at home — from quick snacks to indulgent (yet healthy) desserts. Think crispy bites without deep frying, naturally sweet treats without refined sugar, and desserts that feel indulgent without the guilt. Whether you're vegetarian or not, these recipes are a hit for everyone.</p>
+    <p>We've included video recipes from various creators available on the internet so you can follow step-by-step and get perfect results every time. Eat smart, snack better, and enjoy every bite — guilt-free.</p>
+  </div>
+
+  <!-- SNACKS -->
+  <div class="sub-heading reveal">Snacks</div>
+  <div class="zigzag">
+
+    <div class="big-card reveal">
+      <img src="apple.jpeg" alt="Buttery Apple Slices">
+      <div class="card-content">
+        <h3>Buttery Apple Slices</h3>
+        <p class="speciality">A quick indulgent treat topped with crunchy nuts. Rich in fibre and helps keep you full longer.</p>
+        <ul class="ingredients">
+          <li>1 apple</li>
+          <li>¼ cup peanut butter</li>
+          <li>2 tbsp jaggery</li>
+          <li>½ tsp cinnamon</li>
+          <li>2 tbsp water</li>
+        </ul>
+        <a href="https://youtube.com/shorts/YozpBwskQYQ?si=KD8WCA0C4FVln1ZG" class="btn" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Watch Recipe
+        </a>
+      </div>
+    </div>
+
+    <div class="big-card reveal">
+      <img src="biscotti.jpeg" alt="Almond Biscotti">
+      <div class="card-content">
+        <h3>Almond Biscotti</h3>
+        <p class="speciality">Creamy, refreshing and naturally sweet. A perfect high-protein snack for evening cravings.</p>
+        <ul class="ingredients">
+          <li>½ cup sugar</li>
+          <li>¼ cup butter, melted</li>
+          <li>½ cup milk</li>
+          <li>½ cup almonds</li>
+          <li>1½ tsp baking powder</li>
+        </ul>
+        <a href="https://youtube.com/shorts/UdRw4PlHsY0?si=VLuvDDyc1ndovkZ-" class="btn" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Watch Recipe
+        </a>
+      </div>
+    </div>
+
+    <div class="big-card reveal">
+      <img src="papdi.jpeg" alt="Papdi Chaat">
+      <div class="card-content">
+        <h3>Papdi Chaat</h3>
+        <p class="speciality">A healthy, crunchy snack — less oil, good fibre, light on the stomach, and super tasty. Perfect for quick cravings!</p>
+        <ul class="ingredients">
+          <li>Wheat flour</li>
+          <li>Ajwain &amp; salt</li>
+          <li>Water &amp; jaggery</li>
+          <li>Chutneys</li>
+        </ul>
+        <a href="https://youtube.com/shorts/v3uI4TtgAVk?si=pRt1VJ_8au45IHoT" class="btn" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Watch Recipe
+        </a>
+      </div>
+    </div>
+
+    <div class="big-card reveal">
+      <img src="chana.jpeg" alt="Kala Chana Chaat">
+      <div class="card-content">
+        <h3>Kala Chana Chaat</h3>
+        <p class="speciality">High-protein brown chickpeas tossed with fresh herbs, lemon, and tangy chutneys. A wholesome evening snack.</p>
+        <ul class="ingredients">
+          <li>Kala chana (brown chickpeas)</li>
+          <li>Water</li>
+          <li>Fresh coriander</li>
+          <li>Lemon juice</li>
+          <li>Mint &amp; tamarind</li>
+        </ul>
+        <a href="https://youtube.com/shorts/MW_zVmot4Tk?si=iuNGpIjlrsEbZbCa" class="btn" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Watch Recipe
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DESSERTS -->
+  <div class="sub-heading reveal">Desserts</div>
+  <div class="zigzag">
+
+    <div class="big-card reveal">
+      <img src="rabdi.jpeg" alt="Satvic Rabdi">
+      <div class="card-content">
+        <h3>Satvic Rabdi</h3>
+        <p class="speciality">A guilt-free twist on the classic Indian dessert. Made without refined sugar — sweetened naturally with dates or jaggery, infused with cardamom and saffron for a rich, creamy texture. Supports digestion and mental clarity.</p>
+        <ul class="ingredients">
+          <li>Cashews, almonds, pistachios</li>
+          <li>25 saffron strands, soaked</li>
+          <li>1 tsp rose petals</li>
+          <li>½ cup sweet potatoes</li>
+        </ul>
+        <a href="https://youtu.be/bxHowbbbWss?si=CVwozDCaSpNBTJnH" class="btn" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Watch Recipe
+        </a>
+      </div>
+    </div>
+
+    <div class="big-card reveal">
+      <img src="kheer.jpeg" alt="Satvic Kheer">
+      <div class="card-content">
+        <h3>Satvic Kheer</h3>
+        <p class="speciality">Can you imagine eating kheer that is healthy? No sugar, no milk, no ghee — just wholesome ingredients straight from nature!</p>
+        <ul class="ingredients">
+          <li>Kodo millet (kodra), soaked</li>
+          <li>Water, jaggery powder, cardamom</li>
+          <li>10 saffron strands, rose water</li>
+          <li>Almonds, pistachios, raisins</li>
+        </ul>
+        <p class="prep-note"><b>Prep:</b> Cook millet ~30 mins. Blend almonds with water into milk. Mix into cooked millet off heat. Refrigerate 30 mins to thicken. Add toppings and serve.</p>
+      </div>
+    </div>
+
+    <div class="big-card reveal">
+      <img src="mousse.jpeg" alt="Chocolate Mousse">
+      <div class="card-content">
+        <h3>Chocolate Mousse</h3>
+        <p class="speciality">A silky smooth chocolate treat that tastes totally indulgent but is secretly healthy — made with wholesome ingredients, natural sweetness, and rich cocoa goodness.</p>
+        <ul class="ingredients">
+          <li>Coconut milk</li>
+          <li>Dates &amp; jaggery</li>
+          <li>Cocoa powder</li>
+          <li>Almonds, pistachios, cashews</li>
+        </ul>
+        <a href="https://youtu.be/bxHowbbbWss?si=D7i7bYyqQCsvQLsT" class="btn" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Watch Recipe
+        </a>
+      </div>
+    </div>
+
+    <div class="big-card reveal">
+      <img src="cake.jpeg" alt="Blessing Cake">
+      <div class="card-content">
+        <h3>Life is a Blessing Cake</h3>
+        <p class="speciality">Life is a blessing… and so is this cake! Made with wholesome, natural ingredients — no guilt, just pure health. Rich, nourishing, and irresistibly tasty.</p>
+        <ul class="ingredients">
+          <li>Almonds, walnuts, dates, soaked cashews</li>
+          <li>2 cups pumpkin seeds</li>
+          <li>Jaggery powder &amp; nutmeg powder</li>
+          <li>Honey</li>
+        </ul>
+        <p class="prep-note"><b>Prep:</b> Blend crust until crumbly. Press into greased tin, freeze 10 mins. Blend filling smooth, pour over crust, freeze 18 hours. Thaw 10 mins before slicing.</p>
+      </div>
+    </div>
+
+  </div>
+</div> 
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Expand/collapse diet plan panels
+let currentOpen = null;
+
+function togglePlan(id) {
+  const panel = document.getElementById('panel-' + id);
+  const card  = document.getElementById('card-'  + id);
+
+  if (currentOpen === id) {
+    panel.classList.remove('open');
+    card.classList.remove('active');
+    currentOpen = null;
+    return;
+  }
+
+  if (currentOpen) {
+    document.getElementById('panel-' + currentOpen).classList.remove('open');
+    document.getElementById('card-'  + currentOpen).classList.remove('active');
+  }
+
+  panel.classList.add('open');
+  card.classList.add('active');
+  currentOpen = id;
+
+  setTimeout(() => panel.scrollIntoView({ behavior:'smooth', block:'nearest' }), 80);
+}
+</script>
+</body>
+</html> 

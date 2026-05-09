@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FitAura - Your Progress</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #f4f7fb;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.navbar h2 {
+    color: #1b4332;
+    font-size: 1.5rem;
+}
+
+.nav-links a {
+    margin-left: 25px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #2d6a4f;
+}
+
+.hero {
+    height: 40vh;
+    background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+                url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1600&q=80&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.section {
+    padding: 50px 60px;
+    text-align: center;
+}
+
+.section h2 {
+    font-size: 1.8rem;
+    color: #1b4332;
+    margin-bottom: 30px;
+}
+
+.row-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.small-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px 25px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    max-width: 350px;
+    width: 100%;
+    text-align: left;
+}
+
+.small-card h3 {
+    font-size: 0.95rem;
+    color: #1b4332;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.small-card .time {
+    font-size: 0.8rem;
+    color: #999;
+    margin-bottom: 10px;
+}
+
+.btn {
+    background: #2d6a4f;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: 0.3s;
+    width: auto;
+    display: inline-block;
+    margin: 8px 6px 0 0;
+}
+
+.btn:hover {
+    background: #52b788;
+}
+
+.btn-danger {
+    background: #e63946;
+}
+
+.btn-danger:hover {
+    background: #c1121f;
+}
+
+.empty-msg {
+    color: #999;
+    font-size: 1rem;
+    margin-top: 20px;
+}
+
+.action-row {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+    <h2>FitAura</h2>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+         <a href="bmi (4).html">BMI</a>
+        <a href="web35_enhanced (1).html">Diet</a>
+        <a href="wellness (3).html">Wellness</a>
+        <a href="progress (2).html" style="color:#2d6a4f;font-weight:700;">Progress</a>
+        <a href="Aboutus.html">About Us</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <h1>Your Progress</h1>
+</section>
+
+<section class="section">
+    <h2>Saved BMI Records</h2>
+    <div id="historyContainer" class="row-layout"></div>
+
+    <div class="action-row">
+        <button class="btn btn-danger" onclick="clearData()">🗑 Clear All</button>
+        <button class="btn" onclick="window.location.href='bmi (4).html'">⬅ Back to BMI</button>
+    </div>
+</section>
+
+<script>
+function loadData() {
+    let data = JSON.parse(localStorage.getItem("bmiData")) || [];
+    let container = document.getElementById("historyContainer");
+
+    if (data.length === 0) {
+        container.innerHTML = "<p class='empty-msg'>No records saved yet. Go calculate your BMI! 💪</p>";
+        return;
+    }
+
+    data.forEach((item, index) => {
+        container.innerHTML += `
+            <div class="small-card">
+                <h3>${item.data}</h3>
+                <p class="time">🕐 ${item.time}</p>
+                <button class="btn btn-danger" onclick="deleteOne(${index})">Delete</button>
+            </div>
+        `;
+    });
+}
+
+function deleteOne(index) {
+    let data = JSON.parse(localStorage.getItem("bmiData"));
+    data.splice(index, 1);
+    localStorage.setItem("bmiData", JSON.stringify(data));
+    location.reload();
+}
+
+function clearData() {
+    if (confirm("Clear all records?")) {
+        localStorage.removeItem("bmiData");
+        location.reload();
+    }
+}
+
+loadData();
+</script>
+
+</body>
+</html>

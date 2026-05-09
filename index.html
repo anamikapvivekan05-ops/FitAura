@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FitAura – Where Fitness Meets Balance</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#2d6a4f;
+  --green-mid:#40916c;
+  --green-light:#52b788;
+  --green-pale:#d8f3dc;
+  --gold:#c9a84c;
+  --cream:#f6f9f8;
+  --dark:#111a14;
+  --mid:#4a5568;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--dark);overflow-x:hidden;}
+
+/* ── NAVBAR ── */
+.navbar{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:18px 6%;background:rgba(255,255,255,0.0);
+  backdrop-filter:blur(0px);position:fixed;top:0;left:0;right:0;z-index:200;
+  transition:all 0.4s;
+}
+.navbar.scrolled{
+  background:rgba(255,255,255,0.95);backdrop-filter:blur(16px);
+  box-shadow:0 2px 20px rgba(0,0,0,0.07);padding:13px 6%;
+}
+.navbar h2{font-size:26px;font-weight:900;color:white;transition:color 0.4s;letter-spacing:-0.5px;text-decoration:none;}
+.navbar h2 span{color:var(--green-light);}
+.navbar.scrolled h2{color:var(--green);}
+.navbar.scrolled h2 span{color:var(--gold);}
+.nav-links{display:flex;gap:28px;align-items:center;}
+.nav-links a{font-size:14px;font-weight:500;color:rgba(255,255,255,0.88);text-decoration:none;transition:color 0.3s;position:relative;}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:2px;background:var(--green-light);transform:scaleX(0);transform-origin:left;transition:transform 0.3s;}
+.nav-links a:hover::after{transform:scaleX(1);}
+.navbar.scrolled .nav-links a{color:var(--mid);}
+.nav-links a:hover{color:var(--green-light);}
+.navbar.scrolled .nav-links a:hover{color:var(--green);}
+.navbar.scrolled .nav-links a::after{background:var(--green);}
+.nav-cta{
+  padding:10px 24px;background:var(--green-light);color:white!important;
+  border-radius:50px;font-size:13.5px;font-weight:700;
+  text-decoration:none;transition:all 0.3s;
+}
+.nav-cta::after{display:none!important;}
+.nav-cta:hover{background:var(--green)!important;transform:scale(1.04);}
+.navbar.scrolled .nav-cta{background:var(--green);}
+.navbar.scrolled .nav-cta:hover{background:var(--green-light)!important;}
+
+/* Hamburger (mobile) */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
+.hamburger span{width:24px;height:2px;background:white;border-radius:2px;transition:all 0.3s;}
+.navbar.scrolled .hamburger span{background:var(--dark);}
+.mobile-menu{
+  display:none;position:fixed;top:0;left:0;right:0;bottom:0;
+  background:rgba(17,26,20,0.97);z-index:190;
+  flex-direction:column;align-items:center;justify-content:center;gap:32px;
+}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{font-size:22px;font-weight:700;color:white;text-decoration:none;letter-spacing:-0.5px;}
+.mobile-menu a:hover{color:var(--green-light);}
+.mobile-menu .close{position:absolute;top:20px;right:24px;font-size:32px;color:white;cursor:pointer;}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  text-align:center;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,var(--dark) 0%,#1a3628 50%,#0d2018 100%);
+}
+.hero-bg-img{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=1600') center/cover;
+  opacity:0.45;
+}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.22;pointer-events:none;}
+.orb1{width:500px;height:500px;background:#52b788;top:-100px;left:-80px;animation:drift1 12s ease-in-out infinite;}
+.orb2{width:380px;height:380px;background:#2d6a4f;bottom:-60px;right:-40px;animation:drift2 14s ease-in-out infinite;}
+.orb3{width:260px;height:260px;background:var(--gold);top:40%;right:8%;opacity:0.12;animation:drift1 16s ease-in-out infinite reverse;}
+@keyframes drift1{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,25px)}}
+@keyframes drift2{0%,100%{transform:translate(0,0)}50%{transform:translate(-25px,-30px)}}
+
+.hero-content{position:relative;z-index:2;padding:0 20px;animation:heroIn 1s cubic-bezier(.16,1,.3,1) both;}
+@keyframes heroIn{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);
+  color:var(--green-light);font-size:11px;font-weight:700;letter-spacing:3px;
+  text-transform:uppercase;padding:8px 22px;border-radius:50px;margin-bottom:26px;
+}
+.hero h1{
+  font-size:clamp(40px,7vw,84px);font-weight:900;color:white;
+  line-height:1.05;letter-spacing:-2px;margin-bottom:18px;
+}
+.hero h1 .green{color:var(--green-light);}
+.hero p{font-size:18px;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto 40px;line-height:1.75;font-weight:300;}
+
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+.btn-hero-primary{
+  padding:16px 38px;background:var(--green-light);color:white;
+  border-radius:50px;font-size:16px;font-weight:700;text-decoration:none;
+  transition:all 0.3s;box-shadow:0 8px 28px rgba(82,183,136,0.35);
+}
+.btn-hero-primary:hover{background:var(--green);transform:translateY(-2px);box-shadow:0 14px 40px rgba(82,183,136,0.45);}
+.btn-hero-outline{
+  padding:16px 38px;background:transparent;color:white;
+  border:2px solid rgba(255,255,255,0.35);border-radius:50px;
+  font-size:16px;font-weight:600;text-decoration:none;transition:all 0.3s;
+}
+.btn-hero-outline:hover{background:rgba(255,255,255,0.1);border-color:white;}
+
+/* Stats bar */
+.stats-bar{
+  position:absolute;bottom:0;left:0;right:0;z-index:3;
+  background:rgba(255,255,255,0.06);backdrop-filter:blur(12px);
+  border-top:1px solid rgba(255,255,255,0.08);
+  display:flex;justify-content:center;gap:0;
+  padding:20px 6%;
+}
+.stat-item{
+  flex:1;max-width:200px;text-align:center;
+  border-right:1px solid rgba(255,255,255,0.1);
+  padding:0 24px;
+}
+.stat-item:last-child{border-right:none;}
+.stat-num{font-size:26px;font-weight:800;color:white;letter-spacing:-1px;}
+.stat-num span{color:var(--green-light);}
+.stat-label{font-size:11px;color:rgba(255,255,255,0.5);font-weight:500;margin-top:2px;letter-spacing:0.5px;}
+
+/* ── FEATURES ── */
+.features{padding:90px 7%;background:white;}
+.features-header{text-align:center;margin-bottom:54px;}
+.section-tag{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--green);margin-bottom:10px;}
+.section-title{font-size:clamp(28px,3.5vw,44px);font-weight:800;color:var(--dark);letter-spacing:-0.5px;line-height:1.2;}
+.section-sub{font-size:15px;color:var(--mid);margin-top:10px;font-weight:400;}
+
+.feature-container{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:22px;max-width:1100px;margin:0 auto;
+}
+.feature-card{
+  background:var(--cream);border-radius:20px;padding:32px 24px;
+  text-align:center;transition:transform 0.35s cubic-bezier(.2,.8,.3,1),box-shadow 0.35s;
+  cursor:pointer;text-decoration:none;color:var(--dark);display:block;
+  position:relative;overflow:hidden;
+}
+.feature-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--green),var(--green-light));
+  transform:scaleX(0);transform-origin:left;transition:transform 0.4s;
+}
+.feature-card:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(45,106,79,0.12);}
+.feature-card:hover::before{transform:scaleX(1);}
+.feature-icon{
+  width:62px;height:62px;border-radius:18px;margin:0 auto 18px;
+  background:linear-gradient(135deg,var(--green),var(--green-light));
+  display:flex;align-items:center;justify-content:center;font-size:26px;
+  box-shadow:0 6px 18px rgba(45,106,79,0.25);
+}
+.feature-card h3{font-size:16px;font-weight:700;margin-bottom:8px;}
+.feature-card p{font-size:13px;color:var(--mid);line-height:1.7;}
+.feature-card .arrow{
+  display:inline-block;margin-top:14px;font-size:12px;font-weight:700;
+  color:var(--green-light);opacity:0;transform:translateX(-6px);transition:all 0.3s;
+}
+.feature-card:hover .arrow{opacity:1;transform:translateX(0);}
+
+/* ── HOW IT WORKS ── */
+.how{padding:80px 7%;background:var(--cream);}
+.steps{display:flex;gap:0;max-width:900px;margin:40px auto 0;position:relative;}
+.steps::before{
+  content:'';position:absolute;top:32px;left:10%;right:10%;height:2px;
+  background:linear-gradient(90deg,var(--green-pale),var(--green-light),var(--green-pale));
+  z-index:0;
+}
+.step{flex:1;text-align:center;position:relative;z-index:1;padding:0 16px;}
+.step-num{
+  width:64px;height:64px;border-radius:50%;background:white;
+  border:3px solid var(--green-light);
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;font-weight:900;color:var(--green);
+  margin:0 auto 16px;box-shadow:0 4px 20px rgba(82,183,136,0.2);
+}
+.step h4{font-size:15px;font-weight:700;margin-bottom:6px;color:var(--dark);}
+.step p{font-size:12.5px;color:var(--mid);line-height:1.65;}
+
+/* ── MOTIVATION ── */
+.motivation{
+  background:linear-gradient(135deg,var(--green) 0%,var(--green-mid) 100%);
+  padding:80px 6%;text-align:center;position:relative;overflow:hidden;
+}
+.motivation::before{
+  content:'"';position:absolute;top:-30px;left:5%;
+  font-size:300px;font-weight:900;color:rgba(255,255,255,0.05);line-height:1;font-family:serif;
+}
+.motivation h2{
+  font-size:clamp(22px,3.5vw,42px);font-weight:800;color:white;
+  margin-bottom:14px;letter-spacing:-0.5px;position:relative;z-index:1;
+}
+#quote-text{font-style:italic;}
+.motivation p{font-size:15px;color:rgba(255,255,255,0.75);margin-bottom:32px;position:relative;z-index:1;}
+.btn-motive{
+  display:inline-block;padding:14px 36px;background:white;color:var(--green);
+  border-radius:50px;font-size:15px;font-weight:700;text-decoration:none;
+  transition:all 0.3s;box-shadow:0 6px 20px rgba(0,0,0,0.12);position:relative;z-index:1;
+}
+.btn-motive:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,0.18);}
+
+/* ── WELLNESS BANNER ── */
+.wellness-banner{
+  padding:70px 7%;
+  background:white;
+  display:flex;gap:60px;align-items:center;max-width:1200px;margin:0 auto;
+}
+.wellness-img{
+  flex:1;border-radius:24px;overflow:hidden;
+  box-shadow:0 20px 60px rgba(45,106,79,0.15);
+  min-height:340px;position:relative;flex-shrink:0;max-width:420px;
+}
+.wellness-img img{width:100%;height:100%;object-fit:cover;display:block;min-height:340px;}
+.wellness-img .badge{
+  position:absolute;bottom:20px;left:20px;
+  background:white;border-radius:14px;padding:12px 18px;
+  box-shadow:0 6px 24px rgba(0,0,0,0.12);
+  font-size:13px;font-weight:700;color:var(--dark);
+  display:flex;align-items:center;gap:8px;
+}
+.wellness-text{flex:1;}
+.wellness-text .section-tag{margin-bottom:12px;}
+.wellness-text h2{font-size:clamp(26px,3vw,40px);font-weight:800;color:var(--dark);letter-spacing:-0.5px;line-height:1.25;margin-bottom:16px;}
+.wellness-text p{font-size:15px;color:var(--mid);line-height:1.85;margin-bottom:24px;}
+.wellness-pills{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px;}
+.pill{
+  padding:8px 18px;border-radius:50px;font-size:12.5px;font-weight:600;
+  background:var(--green-pale);color:var(--green);
+}
+.btn-wellness{
+  display:inline-block;padding:14px 32px;background:var(--green);color:white;
+  border-radius:50px;font-size:14px;font-weight:700;text-decoration:none;
+  transition:all 0.3s;box-shadow:0 6px 20px rgba(45,106,79,0.25);
+}
+.btn-wellness:hover{background:var(--green-light);transform:translateY(-2px);}
+
+/* ── FOOTER ── */
+.footer{
+  background:var(--dark);color:rgba(255,255,255,0.55);
+  padding:40px 6%;
+}
+.footer-inner{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  flex-wrap:wrap;gap:32px;max-width:1100px;margin:0 auto 32px;
+}
+.footer-brand h3{font-size:22px;font-weight:900;color:white;margin-bottom:6px;}
+.footer-brand h3 span{color:var(--green-light);}
+.footer-brand p{font-size:13px;max-width:220px;line-height:1.7;}
+.footer-links h4{font-size:13px;font-weight:700;color:white;margin-bottom:14px;letter-spacing:1px;text-transform:uppercase;}
+.footer-links a{display:block;font-size:13px;color:rgba(255,255,255,0.5);text-decoration:none;margin-bottom:8px;transition:color 0.3s;}
+.footer-links a:hover{color:var(--green-light);}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,0.07);
+  padding-top:24px;text-align:center;font-size:13px;
+  max-width:1100px;margin:0 auto;
+}
+.footer-bottom span{color:var(--green-light);}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.65s,transform 0.65s;}
+.reveal.up{opacity:1;transform:none;}
+
+@media(max-width:960px){
+  .feature-container{grid-template-columns:1fr 1fr;}
+  .wellness-banner{flex-direction:column;padding:50px 6%;}
+  .wellness-img{max-width:100%;}
+  .steps::before{display:none;}
+  .steps{flex-direction:column;gap:28px;align-items:center;}
+  .step{max-width:320px;width:100%;}
+}
+@media(max-width:700px){
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .feature-container{grid-template-columns:1fr;}
+  .stats-bar{display:none;}
+  .footer-inner{flex-direction:column;}
+}
+@media(max-width:500px){
+  .feature-container{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <h2>Fit<span>Aura</span></h2>
+  <div class="nav-links">
+    <a href="index.html" style="color:var(--green-light);font-weight:700;">Home</a>
+    <a href="bmi (4).html">BMI</a>
+    <a href="web35_enhanced (1).html">Diet</a>
+    <a href="wellness (3).html">Wellness</a>
+    <a href="progress (2).html">Progress</a>
+    <a href="Aboutus.html">About Us</a>
+    <a href="bmi (4).html" class="nav-cta">Check BMI →</a>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <span class="close" onclick="toggleMenu()">✕</span>
+  <a href="index.html" onclick="toggleMenu()">Home</a>
+  <a href="bmi (4).html" onclick="toggleMenu()">BMI Calculator</a>
+  <a href="web35_enhanced (1).html" onclick="toggleMenu()">Diet Plans</a>
+  <a href="wellness (3).html" onclick="toggleMenu()">Wellness</a>
+  <a href="progress (2).html" onclick="toggleMenu()">Progress</a>
+  <a href="Aboutus.html" onclick="toggleMenu()">About Us</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-img"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="hero-content">
+    <div class="hero-badge">✦ Health is not one-size-fits-all</div>
+    <h1>Where Fitness<br>Meets <span class="green">Balance</span></h1>
+    <p>Personalized workouts, personalized diet plans & Ayurvedic wellness — all in one place, made simple for you.</p>
+    <div class="hero-btns">
+      <a href="#features" class="btn-hero-primary">Start Your Journey</a>
+      <a href="bmi (4).html" class="btn-hero-outline">Calculate BMI</a>
+    </div>
+  </div>
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-num">4<span>+</span></div><div class="stat-label">TOOLS & FEATURES</div></div>
+    <div class="stat-item"><div class="stat-num">3<span></span></div><div class="stat-label">DIET PLANS</div></div>
+    <div class="stat-item"><div class="stat-num">3<span></span></div><div class="stat-label">WELLNESS PROFILES</div></div>
+    <div class="stat-item"><div class="stat-num">100<span>%</span></div><div class="stat-label">VEGETARIAN FRIENDLY</div></div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="features-header reveal">
+    <div class="section-tag">What We Offer</div>
+    <h2 class="section-title">Everything for Your<br>Wellness Journey</h2>
+    <p class="section-sub">All the tools you need, in one clean place — no clutter, no confusion.</p>
+  </div>
+  <div class="feature-container">
+    <a class="feature-card reveal" href="bmi (4).html" style="transition-delay:0s">
+      <div class="feature-icon">⚖️</div>
+      <h3>BMI Calculator</h3>
+      <p>Check your health status instantly with metric or imperial units. Save and track your results over time.</p>
+      <div class="arrow">View Tool →</div>
+    </a>
+    <a class="feature-card reveal" href="web35_enhanced (1).html" style="transition-delay:.08s">
+      <div class="feature-icon">🥦</div>
+      <h3>Diet Plans</h3>
+      <p>Personalized  nutrition guidance — weight loss, weight gain, or maintenance with Ayurvedic tips.</p>
+      <div class="arrow">Explore Plans →</div>
+    </a>
+    <a class="feature-card reveal" href="wellness (3).html" style="transition-delay:.16s">
+      <div class="feature-icon">🧘</div>
+      <h3>Wellness & Workouts</h3>
+      <p>Daily fitness routines, yoga, Ayurvedic profiles & 3/7-day wellness retreats for mind-body balance.</p>
+      <div class="arrow">Get Started →</div>
+    </a>
+    <a class="feature-card reveal" href="progress (2).html" style="transition-delay:.24s">
+      <div class="feature-icon">📈</div>
+      <h3>Progress Tracking</h3>
+      <p>Monitor your BMI history and fitness journey over time. Stay motivated with visible results.</p>
+      <div class="arrow">Track Now →</div>
+    </a>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="features-header reveal" style="text-align:center;">
+    <div class="section-tag">Simple Steps</div>
+    <h2 class="section-title">How FitAura Works</h2>
+  </div>
+  <div class="steps">
+    <div class="step reveal" style="transition-delay:0s">
+      <div class="step-num">1</div>
+      <h4>Check Your BMI</h4>
+      <p>Start with the BMI calculator to understand your current health baseline.</p>
+    </div>
+    <div class="step reveal" style="transition-delay:.1s">
+      <div class="step-num">2</div>
+      <h4>Pick Your Plan</h4>
+      <p>Choose a diet chart and workout plan suited to your body type and goals.</p>
+    </div>
+    <div class="step reveal" style="transition-delay:.2s">
+      <div class="step-num">3</div>
+      <h4>Know Your Profile</h4>
+      <p>Discover your Ayurvedic wellness profile for personalized lifestyle tips.</p>
+    </div>
+    <div class="step reveal" style="transition-delay:.3s">
+      <div class="step-num">4</div>
+      <h4>Track Progress</h4>
+      <p>Save your records and watch your journey unfold over time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WELLNESS HIGHLIGHT -->
+<div style="background:white;padding:70px 7%;">
+  <div class="wellness-banner reveal">
+    <div class="wellness-img">
+      <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80" alt="Ayurvedic Wellness" loading="lazy"/>
+      <div class="badge">🌿 Ayurveda Inspired</div>
+    </div>
+    <div class="wellness-text">
+      <div class="section-tag">Holistic Approach</div>
+      <h2>Fitness Science Meets<br>Ancient Wisdom</h2>
+      <p>FitAura uniquely blends modern fitness methods with Ayurvedic principles. Discover your Vata, Pitta, or Kapha profile, get personalised food and exercise suggestions, and explore structured wellness retreats in Rishikesh and Kerala.</p>
+      <div class="wellness-pills">
+        <span class="pill">🔥 Pitta Profile</span>
+        <span class="pill">🌬️ Vata Profile</span>
+        <span class="pill">🌊 Kapha Profile</span>
+        <span class="pill">🧘 Yoga & Meditation</span>
+        <span class="pill">🌿 Detox Retreats</span>
+      </div>
+      <a href="wellness (3).html" class="btn-wellness">Explore Wellness Page →</a>
+    </div>
+  </div>
+</div>
+
+<!-- MOTIVATION -->
+<section class="motivation">
+  <h2>"<span id="quote-text">Health is not one-size-fits-all</span>"</h2>
+  <p>A new thought every few seconds to keep you inspired</p>
+  <a href="web35_enhanced (1).html" class="btn-motive">Explore Diet Plans →</a>
+</section>
+ 
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h3>Fit<span>Aura</span></h3>
+      <p>Where Fitness Meets Balance. Your personal health & wellness companion.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Pages</h4>
+      <a href="index.html">Home</a>
+      <a href="bmi (4).html">BMI Calculator</a>
+      <a href="web35_enhanced (1).html">Diet Plans</a>
+      <a href="wellness (3).html">Wellness & Workouts</a>
+      <a href="progress (2).html">Progress</a>
+      <a href="Aboutus.html">About Us</a>
+    </div>
+    <div class="footer-links">
+      <h4>Features</h4>
+      <a href="bmi (4).html">BMI Tracking</a>
+      <a href="web35_enhanced (1).html">Vegetarian Diets</a>
+      <a href="wellness (3).html">Ayurvedic Profiles</a>
+      <a href="wellness (3).html">Wellness Retreats</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 <span>FitAura</span> | Team B17 — Anamika · Jyothi · Keerthana</p>
+  </div>
+</footer>
+
+<script>
+// Navbar scroll
+const nav=document.getElementById('navbar');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60));
+
+// Mobile menu
+function toggleMenu(){
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// Reveal on scroll
+const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('up');}),{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// Rotating quotes
+const quotes=[
+  "Health is not one-size-fits-all",
+  "Your body can stand almost anything. It's your mind you have to convince",
+  "Fitness is a journey, not a destination",
+  "Take care of your body — it's the only place you have to live",
+  "Small steps every day lead to big changes over time"
+];
+let qi=0;
+const qt=document.getElementById('quote-text');
+qt.style.transition='opacity 0.4s';
+setInterval(()=>{
+  qt.style.opacity='0';
+  setTimeout(()=>{
+    qi=(qi+1)%quotes.length;
+    qt.textContent=quotes[qi];
+    qt.style.opacity='1';
+  },400);
+},3500);
+</script>
+</body>
+</html>

@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wellness & Fitness</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --sage:#8aa89a;
+  --cream:#f7f3ea;
+  --beige:#e7dccb;
+  --orange:#d08a5b;
+  --brown:#5c4433;
+}
+
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:var(--cream);
+  color:var(--brown);
+}
+
+section{
+  padding:80px 10%;
+}
+
+h2{
+  text-align:center;
+  margin-bottom:30px;
+}
+
+.hero{
+  height:100vh;
+  background:url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b') center/cover;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  color:white;
+}
+
+.hero div{
+  background:rgba(0,0,0,0.4);
+  padding:30px;
+  border-radius:20px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:white;
+  padding:20px;
+  border-radius:20px;
+  box-shadow:0 10px 20px rgba(0,0,0,0.1);
+}
+
+.flex{
+  display:flex;
+  gap:40px;
+  align-items:center;
+}
+
+.flex img{
+  width:50%;
+  border-radius:20px;
+}
+
+@media(max-width:768px){
+  .flex{flex-direction:column;}
+  .flex img{width:100%;}
+}
+
+.error{
+  color:red;
+  font-size:12px;
+  display:block;
+  margin-bottom:5px;
+}
+
+.submit-btn{
+  margin-top:15px;
+  padding:12px 20px;
+  border:none;
+  border-radius:25px;
+  background:#d08a5b;
+  color:white;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.submit-btn:hover{
+  transform:scale(1.05);
+}
+
+.form-card{
+  max-width:500px;
+  margin:40px auto;
+  padding:30px;
+  border-radius:25px;
+  background:rgba(255,255,255,0.5);
+  backdrop-filter:blur(15px);
+  box-shadow:0 20px 40px rgba(0,0,0,0.1);
+}
+
+.form-card h3{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.input-group{
+  margin-bottom:15px;
+}
+
+input, select, textarea{
+  width:100%;
+  padding:12px;
+  border-radius:12px;
+  border:none;
+  background:#f7f3ea;
+  outline:none;
+  box-sizing:border-box;
+}
+
+textarea{
+  min-height:80px;
+  resize:none;
+}
+
+input:focus, select:focus, textarea:focus{
+  box-shadow:0 0 0 2px #8aa89a;
+}
+
+.submit-btn{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(135deg,#d08a5b,#8aa89a);
+  color:white;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.submit-btn:hover{
+  transform:scale(1.05);
+}
+
+.popup{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.5);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  pointer-events:none;
+  transition:0.3s;
+}
+
+.popup.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.popup-content{
+  background:white;
+  padding:30px;
+  border-radius:20px;
+  text-align:center;
+  animation:pop 0.4s ease;
+}
+
+.popup-content button{
+  margin-top:15px;
+  padding:10px 20px;
+  border:none;
+  border-radius:20px;
+  background:#8aa89a;
+  color:white;
+  cursor:pointer;
+}
+
+@keyframes pop{
+  from{transform:scale(0.7); opacity:0;}
+  to{transform:scale(1); opacity:1;}
+}
+
+footer{
+  text-align:center;
+  background:var(--brown);
+  color:white;
+  padding:30px;
+}
+
+/* ===== WELLNESS RETREATS ===== */
+
+.retreat-block{
+  display:flex;
+  gap:40px;
+  align-items:flex-start;
+  margin-bottom:20px;
+}
+
+@media(max-width:768px){
+  .retreat-block{ flex-direction:column; }
+}
+
+.retreat-images{
+  flex:0 0 45%;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.retreat-img-main{
+  width:100%;
+  height:240px;
+  object-fit:cover;
+  border-radius:20px;
+}
+
+.retreat-img-side{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.retreat-img-side img{
+  width:100%;
+  height:130px;
+  object-fit:cover;
+  border-radius:14px;
+}
+
+.retreat-info h3{
+  color:var(--orange);
+  margin:0 0 6px;
+  font-size:1.4rem;
+}
+
+.retreat-location{
+  font-size:0.85rem;
+  color:var(--sage);
+  font-weight:600;
+  margin:0 0 15px;
+}
+
+.retreat-info p{
+  font-size:0.93rem;
+  line-height:1.8;
+  color:#7a5c48;
+  margin-bottom:12px;
+}
+
+.retreat-highlights{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:16px;
+}
+
+.retreat-tag{
+  background:var(--cream);
+  border:1.5px solid var(--beige);
+  color:var(--brown);
+  padding:7px 14px;
+  border-radius:30px;
+  font-size:0.82rem;
+  font-weight:600;
+}
+
+/* ===== DOSHA QUIZ ===== */
+
+.quiz-card{
+  max-width:680px;
+  margin:0 auto;
+  background:white;
+  border-radius:28px;
+  padding:40px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.08);
+}
+
+.quiz-progress-bar{
+  height:6px;
+  background:var(--beige);
+  border-radius:10px;
+  margin-bottom:30px;
+  overflow:hidden;
+}
+
+.quiz-progress-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--orange),var(--sage));
+  border-radius:10px;
+  transition:width 0.4s ease;
+}
+
+.quiz-question{
+  font-size:1.1rem;
+  font-weight:600;
+  margin-bottom:20px;
+  line-height:1.6;
+  color:var(--brown);
+}
+
+.quiz-options{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.quiz-option{
+  padding:14px 20px;
+  border:2px solid var(--beige);
+  border-radius:14px;
+  cursor:pointer;
+  font-size:0.95rem;
+  background:var(--cream);
+  color:var(--brown);
+  text-align:left;
+  transition:all 0.25s;
+  font-family:'Poppins',sans-serif;
+}
+
+.quiz-option:hover{
+  border-color:var(--sage);
+  background:rgba(138,168,154,0.1);
+}
+
+.quiz-option.selected{
+  border-color:var(--orange);
+  background:rgba(208,138,91,0.1);
+}
+
+.quiz-nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:28px;
+}
+
+.quiz-counter{
+  font-size:0.85rem;
+  color:#9a7a68;
+}
+
+.quiz-btn{
+  padding:12px 28px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(135deg,var(--orange),var(--sage));
+  color:white;
+  font-family:'Poppins',sans-serif;
+  font-size:0.95rem;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.quiz-btn:hover{ transform:scale(1.04); }
+.quiz-btn:disabled{ opacity:0.4; cursor:not-allowed; transform:none; }
+
+.quiz-result{
+  text-align:center;
+  display:none;
+}
+
+.result-badge{
+  font-size:3rem;
+  margin-bottom:10px;
+}
+
+.result-dosha{
+  font-size:2rem;
+  font-weight:600;
+  color:var(--orange);
+  margin-bottom:10px;
+}
+
+.result-desc{
+  font-size:0.95rem;
+  line-height:1.8;
+  color:#7a5c48;
+  margin-bottom:20px;
+}
+
+.result-tips{
+  background:var(--cream);
+  border-radius:16px;
+  padding:20px 24px;
+  text-align:left;
+}
+
+.result-tips h4{
+  margin:0 0 10px;
+  color:var(--brown);
+}
+
+.result-tips ul{
+  margin:0;
+  padding-left:20px;
+  font-size:0.9rem;
+  line-height:1.9;
+  color:#7a5c48;
+}
+
+.quiz-restart{
+  margin-top:20px;
+  background:var(--beige);
+  color:var(--brown);
+  border:none;
+  padding:10px 24px;
+  border-radius:30px;
+  cursor:pointer;
+  font-family:'Poppins',sans-serif;
+  font-size:0.9rem;
+  transition:0.3s;
+}
+
+.quiz-restart:hover{ background:var(--sage); color:white; }
+
+/* ===== DAILY ROUTINE ===== */
+
+.routine-tabs{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  margin-bottom:35px;
+  flex-wrap:wrap;
+}
+
+.routine-tab{
+  padding:10px 24px;
+  border-radius:30px;
+  border:2px solid var(--beige);
+  background:white;
+  color:var(--brown);
+  font-family:'Poppins',sans-serif;
+  font-size:0.9rem;
+  cursor:pointer;
+  transition:0.3s;
+  font-weight:600;
+}
+
+.routine-tab.active{
+  background:var(--orange);
+  color:white;
+  border-color:var(--orange);
+}
+
+.routine-tab:hover:not(.active){
+  border-color:var(--sage);
+}
+
+.routine-panel{
+  display:none;
+}
+
+.routine-panel.active{
+  display:block;
+}
+
+.routine-timeline{
+  position:relative;
+  padding-left:30px;
+}
+
+.routine-timeline::before{
+  content:'';
+  position:absolute;
+  left:10px;
+  top:0;
+  bottom:0;
+  width:2px;
+  background:var(--beige);
+  border-radius:2px;
+}
+
+.routine-item{
+  position:relative;
+  margin-bottom:28px;
+}
+
+.routine-item::before{
+  content:'';
+  position:absolute;
+  left:-24px;
+  top:6px;
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:var(--orange);
+  border:3px solid var(--cream);
+  box-shadow:0 0 0 2px var(--orange);
+}
+
+.routine-time{
+  font-size:0.78rem;
+  font-weight:600;
+  color:var(--sage);
+  text-transform:uppercase;
+  letter-spacing:0.07em;
+  margin-bottom:4px;
+}
+
+.routine-item h4{
+  margin:0 0 5px;
+  color:var(--brown);
+  font-size:1rem;
+}
+
+.routine-item p{
+  margin:0;
+  font-size:0.88rem;
+  color:#7a5c48;
+  line-height:1.7;
+}
+
+/* ===== YOGA ENHANCEMENTS ===== */
+
+.yoga-intro{
+  background:linear-gradient(135deg, rgba(138,168,154,0.15), rgba(208,138,91,0.1));
+  border-left:4px solid var(--sage);
+  padding:25px 30px;
+  border-radius:0 20px 20px 0;
+  margin-bottom:40px;
+  font-size:1.05rem;
+  line-height:1.8;
+}
+
+.yoga-benefits{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:15px;
+  margin-bottom:40px;
+}
+
+.benefit-chip{
+  background:var(--sage);
+  color:white;
+  padding:12px 18px;
+  border-radius:50px;
+  text-align:center;
+  font-size:0.9rem;
+  font-weight:600;
+}
+
+.asana-card{
+  background:white;
+  border-radius:24px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+  overflow:hidden;
+  transition:transform 0.3s;
+}
+
+.asana-card:hover{
+  transform:translateY(-6px);
+}
+
+.asana-card img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+}
+
+.asana-body{
+  padding:22px;
+}
+
+.asana-body h3{
+  margin:0 0 5px;
+  font-size:1.15rem;
+  color:var(--orange);
+}
+
+.asana-badge{
+  display:inline-block;
+  background:var(--beige);
+  color:var(--brown);
+  font-size:0.75rem;
+  padding:3px 12px;
+  border-radius:20px;
+  margin-bottom:12px;
+  font-weight:600;
+}
+
+.asana-body p{
+  font-size:0.9rem;
+  line-height:1.7;
+  margin:0 0 12px;
+  color:#7a5c48;
+}
+
+.asana-steps{
+  background:var(--cream);
+  border-radius:12px;
+  padding:14px 16px;
+  margin-bottom:12px;
+}
+
+.asana-steps h4{
+  margin:0 0 8px;
+  font-size:0.85rem;
+  color:var(--brown);
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+}
+
+.asana-steps ol{
+  margin:0;
+  padding-left:18px;
+  font-size:0.85rem;
+  line-height:1.8;
+  color:#6b4f3a;
+}
+
+.asana-meta{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.meta-tag{
+  font-size:0.78rem;
+  background:rgba(138,168,154,0.2);
+  color:var(--sage);
+  padding:4px 12px;
+  border-radius:20px;
+  font-weight:600;
+}
+
+.yoga-schedule{
+  background:white;
+  border-radius:24px;
+  padding:30px;
+  box-shadow:0 10px 20px rgba(0,0,0,0.08);
+  margin-top:40px;
+}
+
+.yoga-schedule h3{
+  text-align:center;
+  color:var(--orange);
+  margin-bottom:25px;
+}
+
+.schedule-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:15px;
+}
+
+.schedule-item{
+  background:var(--cream);
+  padding:18px;
+  border-radius:16px;
+}
+
+.schedule-item h4{
+  margin:0 0 8px;
+  color:var(--brown);
+  font-size:0.95rem;
+}
+
+.schedule-item p{
+  margin:0;
+  font-size:0.85rem;
+  color:#7a5c48;
+  line-height:1.6;
+}
+
+.yoga-tip{
+  background:linear-gradient(135deg,var(--orange),var(--sage));
+  color:white;
+  text-align:center;
+  padding:30px;
+  border-radius:20px;
+  margin-top:30px;
+  font-size:1.05rem;
+  font-style:italic;
+  line-height:1.7;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav style="display:flex;justify-content:space-between;align-items:center;padding:16px 6%;background:rgba(255,255,255,0.95);backdrop-filter:blur(16px);position:sticky;top:0;z-index:200;box-shadow:0 2px 20px rgba(0,0,0,0.07);">
+  <a href="index.html" style="font-size:24px;font-weight:900;color:#2d6a4f;text-decoration:none;">Fit<span style="color:#c9a84c;">Aura</span></a>
+  <div style="display:flex;gap:26px;align-items:center;flex-wrap:wrap;">
+    <a href="Home (8).html" style="font-size:14px;font-weight:500;color:#4a5568;text-decoration:none;">Home</a>
+    <a href="bmi (4).html" style="font-size:14px;font-weight:500;color:#4a5568;text-decoration:none;">BMI</a>
+    <a href="web35_enhanced (1).html" style="font-size:14px;font-weight:700;color:#2d6a4f;text-decoration:none;">Diet</a>
+    <a href="wellness (3).html" style="font-size:14px;font-weight:500;color:#4a5568;text-decoration:none;">Wellness</a>
+    <a href="progress (2).html" style="font-size:14px;font-weight:500;color:#4a5568;text-decoration:none;">Progress</a>
+    <a href="Aboutus.html" style="font-size:14px;font-weight:500;color:#4a5568;text-decoration:none;">About Us</a>
+    <a href="bmi (4).html" style="padding:10px 22px;background:#2d6a4f;color:white;border-radius:50px;font-size:13px;font-weight:700;text-decoration:none;">Check BMI →</a>
+  </div>
+</nav> 
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <h1>Transform Your Body. Balance Your Mind.</h1>
+    <p>Personalized fitness and Ayurvedic wellness designed for your lifestyle.</p>
+  </div>
+</div>
+
+<!-- FITNESS IMPORTANCE -->
+<section>
+<h2>Why Physical Fitness Matters</h2>
+<div class="grid">
+<div class="card">Improves strength, stamina, flexibility, and heart health.</div>
+<div class="card">Enhances energy levels and supports overall well-being.</div>
+<div class="card">Reduces stress, improves sleep, and boosts emotional stability.</div>
+<div class="card">Builds long-term healthy habits and lifestyle balance.</div>
+</div>
+</section>
+
+<!-- SPECIALITY -->
+<section>
+<h2>Where Modern Fitness Meets Ayurveda</h2>
+<div class="card">
+<p>Unlike traditional fitness platforms that follow a one-size-fits-all approach, our website integrates modern fitness techniques with Ayurvedic wellness principles.</p>
+<p>We recognize that every individual has a unique body type, energy pattern, and metabolism. Based on this, we provide personalized routines that are natural and sustainable.</p>
+<h3 style="color:var(--orange)">"We focus on balance rather than extreme fitness."</h3>
+</div>
+</section>
+
+<!-- AYURVEDA -->
+<section class="flex">
+<img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773">
+<div>
+<h2>What is Ayurveda?</h2>
+<p>Ayurveda is an ancient Indian system of medicine that focuses on maintaining harmony between the body, mind, and lifestyle.</p>
+<p>The term Ayurveda means "science of life", derived from Sanskrit words Ayur (life) and Veda (knowledge).</p>
+<p>It explains that every person has a unique body constitution called Dosha, which influences metabolism, energy, and personality.</p>
+</div>
+</section>
+
+<!-- DOSHAS -->
+<section>
+<h2>The Three Doshas</h2>
+<div class="grid">
+<div class="card">
+<h3>🌬️ Vata</h3>
+<p>Represents movement and energy. Vata individuals are creative and active but may experience stress and low stamina.</p>
+<p><b>Best lifestyle:</b> calm routines and relaxation.</p>
+</div>
+<div class="card">
+<h3>🔥 Pitta</h3>
+<p>Represents heat and metabolism. Pitta individuals are focused and strong but may face burnout.</p>
+<p><b>Best lifestyle:</b> moderate workouts and cooling activities.</p>
+</div>
+<div class="card">
+<h3>🌱 Kapha</h3>
+<p>Represents stability and strength. Kapha individuals are calm but may have low energy levels.</p>
+<p><b>Best lifestyle:</b> active and energetic routines.</p>
+</div>
+</div>
+</section>
+
+<!-- DOSHA QUIZ -->
+<section>
+<h2>🌿 Find Your Dosha Type</h2>
+<p style="text-align:center;margin-bottom:30px;color:#7a5c48;">Answer 6 quick questions to discover your Ayurvedic body constitution.</p>
+
+<div class="quiz-card">
+  <div class="quiz-progress-bar">
+    <div class="quiz-progress-fill" id="quizProgress" style="width:0%"></div>
+  </div>
+
+  <div id="quizBody">
+    <div class="quiz-question" id="quizQuestion"></div>
+    <div class="quiz-options" id="quizOptions"></div>
+    <div class="quiz-nav">
+      <span class="quiz-counter" id="quizCounter"></span>
+      <button class="quiz-btn" id="quizNext" disabled onclick="nextQuestion()">Next →</button>
+    </div>
+  </div>
+
+  <div class="quiz-result" id="quizResult">
+    <div class="result-badge" id="resultEmoji"></div>
+    <div class="result-dosha" id="resultDosha"></div>
+    <p class="result-desc" id="resultDesc"></p>
+    <div class="result-tips">
+      <h4>Your Personalized Recommendations</h4>
+      <ul id="resultTips"></ul>
+    </div>
+    <button class="quiz-restart" onclick="restartQuiz()">↺ Retake Quiz</button>
+  </div>
+</div>
+</section>
+
+<!-- TRAINING -->
+<section>
+<h2>Physical Training & Exercise</h2>
+<div class="card">
+<p>Physical training improves endurance, flexibility, strength, and overall health. Our platform offers multiple workout types based on comfort and fitness goals.</p>
+</div>
+</section>
+
+<!-- CARDIO -->
+<section class="flex">
+<img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438">
+<div>
+<h2>Cardio Training</h2>
+<p>Cardio workouts improve heart health, stamina, and energy.</p>
+<p><b>Duration:</b><br>
+Beginners → 15–20 mins<br>
+Intermediate → 30 mins<br>
+Advanced → 45 mins</p>
+<p><b>Exercises:</b> Walking, Jogging, Cycling, Jump Rope</p>
+<p><b>Best for:</b> Weight management, stamina, Kapha dosha</p>
+</div>
+</section>
+
+<!-- STRENGTH -->
+<section>
+<h2>Strength Training</h2>
+<div class="card" style="margin-bottom:30px;">
+<p>Strength training focuses on building muscle power, improving posture, and increasing overall body stability through controlled resistance-based exercises. It helps enhance physical strength, supports joint health, and improves daily functional movement. The exercises below are simple, effective, and can be adjusted based on your fitness level.</p>
+</div>
+<div class="grid">
+<div class="card">Squats – 12 reps</div>
+<div class="card">Push-ups – 10 reps</div>
+<div class="card">Lunges – 10 each leg</div>
+<div class="card">Planks – 30 sec</div>
+</div>
+<p style="text-align:center;margin-top:20px;">Best for muscle strength, posture, and Pitta dosha</p>
+</section>
+
+<!-- ZUMBA -->
+<section class="flex">
+<img src="https://images.unsplash.com/photo-1518611012118-696072aa579a" alt="Zumba Fitness">
+<div>
+<h2>Zumba Fitness</h2>
+<p>Zumba is a fun and energetic workout that combines dance movements with fitness routines. It turns exercise into an enjoyable experience while improving stamina, coordination, and overall fitness.</p>
+<p><b>Duration:</b> 20–40 minutes</p>
+<p><b>Benefits:</b><br>
+Burns calories<br>
+Reduces stress<br>
+Improves mood<br>
+Increases flexibility</p>
+</div>
+</section>
+
+<!-- ===================== YOGA — ENHANCED ===================== -->
+<section>
+<h2>🧘 Yoga & Asanas</h2>
+
+<!-- Intro -->
+<div class="yoga-intro">
+  <strong>Yoga</strong> is one of the world's oldest mind-body practices, originating in ancient India over 5,000 years ago. The word <em>yoga</em> comes from the Sanskrit root <em>yuj</em>, meaning "to unite" — reflecting its goal of harmonizing body, breath, and mind.<br><br>
+  Regular yoga practice builds flexibility, improves posture, calms the nervous system, and strengthens the core. Unlike high-intensity workouts, yoga works from the inside out — releasing tension stored deep in muscles and joints while cultivating mental clarity and emotional balance. It is suitable for all ages and fitness levels, and pairs beautifully with Ayurvedic principles to support your unique dosha type.
+</div>
+
+<!-- Benefits chips -->
+<div class="yoga-benefits">
+  <div class="benefit-chip">🌿 Reduces Stress & Anxiety</div>
+  <div class="benefit-chip">💪 Builds Core Strength</div>
+  <div class="benefit-chip">🔄 Improves Flexibility</div>
+  <div class="benefit-chip">🫁 Deepens Breath Awareness</div>
+  <div class="benefit-chip">🧠 Boosts Mental Focus</div>
+  <div class="benefit-chip">❤️ Supports Heart Health</div>
+</div>
+
+<!-- Asana Cards -->
+<div class="grid">
+
+  <!-- Tadasana -->
+  <div class="asana-card">
+    <img src="https://images.unsplash.com/photo-1593811167562-9cef47bfc4d7" alt="Tadasana">
+    <div class="asana-body">
+      <h3>Tadasana</h3>
+      <span class="asana-badge">Mountain Pose · Beginner</span>
+      <p>The foundation of all standing poses. Aligns the spine, engages the whole body, and builds a sense of stillness and grounded awareness.</p>
+      <div class="asana-meta">
+        <span class="meta-tag">⏱ 30–60 sec</span>
+        <span class="meta-tag">Posture · Balance</span>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- Balasana -->
+  <div class="asana-card">
+    <img src="https://images.unsplash.com/photo-1552196563-55cd4e45efb3" alt="Balasana">
+    <div class="asana-body">
+      <h3>Balasana</h3>
+      <span class="asana-badge">Child's Pose · Beginner</span>
+      <p>A deeply restorative resting pose that gently stretches the hips and lower back while calming the nervous system and relieving stress.</p>
+      <div class="asana-meta">
+        <span class="meta-tag">⏱ 1–3 min</span>
+        <span class="meta-tag">Stress Relief · Rest</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bhujangasana -->
+  <div class="asana-card">
+    <img src="https://images.unsplash.com/photo-1599447421416-3414500d18a5" alt="Bhujangasana">
+    <div class="asana-body">
+      <h3>Bhujangasana</h3>
+      <span class="asana-badge">Cobra Pose · Beginner</span>
+      <p>Opens the chest, strengthens the spine, and counteracts the forward-hunching posture caused by long hours of sitting at a desk.</p>
+      <div class="asana-meta">
+        <span class="meta-tag">⏱ 15–30 sec</span>
+        <span class="meta-tag">Spine · Flexibility</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cat-Cow -->
+  <div class="asana-card">
+    <img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597" alt="Cat-Cow">
+    <div class="asana-body">
+      <h3>Cat-Cow Stretch</h3>
+      <span class="asana-badge">Flow Pose · Beginner</span>
+      <p>A gentle flowing movement between two poses that warms up the spine, improves mobility, and synchronises breath with motion.</p>
+      <div class="asana-meta">
+        <span class="meta-tag">⏱ 2–3 min</span>
+        <span class="meta-tag">Spine · Breathing</span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end grid -->
+
+<!-- Weekly Schedule -->
+<div class="yoga-schedule">
+  <h3>🗓 Recommended Weekly Yoga Schedule</h3>
+  <div class="schedule-grid">
+    <div class="schedule-item">
+      <h4>Beginner (15–20 min/day)</h4>
+      <p>Tadasana · Balasana · Cat-Cow · Savasana<br>Focus: posture, breath awareness, gentle flexibility</p>
+    </div>
+    <div class="schedule-item">
+      <h4>Intermediate (30 min · 5 days/week)</h4>
+      <p>Surya Namaskar · Bhujangasana · Vrikshasana · Savasana<br>Focus: strength, balance, spinal health</p>
+    </div>
+    <div class="schedule-item">
+      <h4>Best Time to Practice</h4>
+      <p>Early morning on an empty stomach is ideal. Evening sessions (2 hrs after eating) help decompress after the day.</p>
+    </div>
+    <div class="schedule-item">
+      <h4>Tips for All Levels</h4>
+      <p>Never force a pose. Use a mat on a flat surface. Breathe continuously — never hold breath unless instructed.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Closing quote -->
+<div class="yoga-tip">
+  "Yoga is not about touching your toes. It is about what you learn on the way down." <br>
+  <small>— Practice with patience, consistency, and self-compassion.</small>
+</div>
+
+</section>
+
+<!-- DAILY ROUTINE -->
+<section>
+<h2>🌅 Dosha-Based Daily Routine</h2>
+<p style="text-align:center;margin-bottom:10px;color:#7a5c48;">A consistent daily routine aligned with your dosha is one of the most powerful wellness tools in Ayurveda.</p>
+
+<div class="routine-tabs">
+  <button class="routine-tab active" onclick="showRoutine('vata', this)">🌬️ Vata</button>
+  <button class="routine-tab" onclick="showRoutine('pitta', this)">🔥 Pitta</button>
+  <button class="routine-tab" onclick="showRoutine('kapha', this)">🌱 Kapha</button>
+</div>
+
+<!-- VATA -->
+<div class="routine-panel active" id="routine-vata">
+<div class="grid">
+<div class="card">
+  <h3 style="color:var(--orange);margin-top:0">☀️ Morning Habits</h3>
+  <ul style="line-height:2;color:#7a5c48;padding-left:18px;">
+    <li>Start with a glass of warm water</li>
+    <li>Gentle yoga — Tadasana, Balasana, Cat-Cow</li>
+    <li>Warm, cooked breakfast with ghee and spices</li>
+    <li>Avoid rushing — give yourself time to ease into the day</li>
+  </ul>
+</div>
+<div class="card">
+  <h3 style="color:var(--sage);margin-top:0">🌙 Evening Habits</h3>
+  <ul style="line-height:2;color:#7a5c48;padding-left:18px;">
+    <li>Light walk or gentle stretching</li>
+    <li>Warm, easily digestible dinner</li>
+    <li>Self-massage with sesame oil before bed</li>
+    <li>No screens 30 mins before sleeping</li>
+  </ul>
+</div>
+</div>
+</div>
+
+<!-- PITTA -->
+<div class="routine-panel" id="routine-pitta">
+<div class="grid">
+<div class="card">
+  <h3 style="color:var(--orange);margin-top:0">☀️ Morning Habits</h3>
+  <ul style="line-height:2;color:#7a5c48;padding-left:18px;">
+    <li>Cool water rinse and tongue scraping</li>
+    <li>Moderate yoga, swimming, or cycling</li>
+    <li>Cooling breakfast — fresh fruit or coconut smoothie</li>
+    <li>Avoid spicy or salty food in the morning</li>
+  </ul>
+</div>
+<div class="card">
+  <h3 style="color:var(--sage);margin-top:0">🌙 Evening Habits</h3>
+  <ul style="line-height:2;color:#7a5c48;padding-left:18px;">
+    <li>Walk in nature — near water is ideal</li>
+    <li>Balanced, satisfying dinner — never skip meals</li>
+    <li>Loving-kindness meditation for 10 minutes</li>
+    <li>Scalp massage with coconut oil before sleep</li>
+  </ul>
+</div>
+</div>
+</div>
+
+<!-- KAPHA -->
+<div class="routine-panel" id="routine-kapha">
+<div class="grid">
+<div class="card">
+  <h3 style="color:var(--orange);margin-top:0">☀️ Morning Habits</h3>
+  <ul style="line-height:2;color:#7a5c48;padding-left:18px;">
+    <li>Wake before 6 AM — no snoozing</li>
+    <li>Vigorous workout — jogging, Zumba, or Surya Namaskar</li>
+    <li>Light breakfast with warming spices like ginger</li>
+    <li>Avoid heavy or oily food in the morning</li>
+  </ul>
+</div>
+<div class="card">
+  <h3 style="color:var(--sage);margin-top:0">🌙 Evening Habits</h3>
+  <ul style="line-height:2;color:#7a5c48;padding-left:18px;">
+    <li>Evening walk or light workout after work</li>
+    <li>Light, early dinner — soups and steamed vegetables</li>
+    <li>Dry body brushing to stimulate circulation</li>
+    <li>Journaling — reflect on the day before sleep</li>
+  </ul>
+</div>
+</div>
+</div>
+
+</section>
+
+<!-- WELLNESS RETREATS -->
+<section>
+<h2>Mind–Body Wellness Retreats</h2>
+<p style="text-align:center;margin-bottom:40px;color:#7a5c48;">Two of India's most celebrated destinations for Ayurvedic healing and holistic wellness.</p>
+
+<!-- KERALA -->
+<div class="retreat-block">
+<div class="retreat-images">
+  <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=800" alt="Kerala backwaters" class="retreat-img-main">
+  <div class="retreat-img-side">
+    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400" alt="Ayurvedic massage Kerala">
+    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400" alt="Kerala nature wellness">
+  </div>
+</div>
+<div class="retreat-info">
+  <h3>🌊 Kerala Wellness Retreat</h3>
+  <p class="retreat-location">📍 God's Own Country · South India</p>
+  <p>Kerala is the birthplace of Ayurveda and home to some of the world's most authentic wellness centres. Surrounded by lush backwaters, coconut groves, and the Arabian Sea, a Kerala retreat offers the perfect environment for deep healing and total restoration of the body and mind.</p>
+  <p>Trained Ayurvedic doctors assess your dosha and design a completely personalised treatment plan — from herbal oil therapies and Panchakarma detox to medicated steam baths and specialised diets.</p>
+  <div class="retreat-highlights">
+    <div class="retreat-tag">🛕 Panchakarma Detox</div>
+    <div class="retreat-tag">💆 Abhyanga Oil Massage</div>
+    <div class="retreat-tag">🌿 Herbal Treatments</div>
+    <div class="retreat-tag">🧘 Yoga by the Backwaters</div>
+    <div class="retreat-tag">🍃 Ayurvedic Diet Plans</div>
+    <div class="retreat-tag">🌅 Shirodhara Therapy</div>
+  </div>
+  <p style="font-size:0.88rem;color:#9a7a68;margin-top:15px;">⏱ Recommended Stay: 5–7 days &nbsp;|&nbsp; Best Season: October – March</p>
+</div>
+</div>
+
+<div style="height:2px;background:var(--beige);border-radius:2px;margin:50px 0;"></div>
+
+<!-- RISHIKESH -->
+<div class="retreat-block">
+<div class="retreat-images">
+  <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800" alt="Rishikesh Himalayas" class="retreat-img-main">
+  <div class="retreat-img-side">
+    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400" alt="Yoga Rishikesh">
+    <img src="https://images.unsplash.com/photo-1593814681464-eef5af2b0628?w=400" alt="Ganga Rishikesh meditation">
+  </div>
+</div>
+<div class="retreat-info">
+  <h3>🏔️ Rishikesh Wellness Retreat</h3>
+  <p class="retreat-location">📍 Yoga Capital of the World · Uttarakhand, India</p>
+  <p>Nestled in the foothills of the Himalayas along the banks of the sacred Ganga river, Rishikesh is internationally recognised as the Yoga Capital of the World. The combination of pure mountain air, spiritual energy, and expert teachers makes it an unmatched destination for mental and physical transformation.</p>
+  <p>Retreats here combine classical Hatha and Ashtanga yoga with meditation, pranayama, and mindfulness workshops — creating a structured daily practice that participants carry home with them long after the retreat ends.</p>
+  <div class="retreat-highlights">
+    <div class="retreat-tag">🧘 Yoga Teacher-Led Sessions</div>
+    <div class="retreat-tag">🫁 Pranayama Workshops</div>
+    <div class="retreat-tag">🏞️ Himalayan Nature Walks</div>
+    <div class="retreat-tag">🕯️ Ganga Aarti Ceremony</div>
+    <div class="retreat-tag">🧠 Mindfulness & Meditation</div>
+    <div class="retreat-tag">🥗 Sattvic Vegetarian Diet</div>
+  </div>
+  <p style="font-size:0.88rem;color:#9a7a68;margin-top:15px;">⏱ Recommended Stay: 3–7 days &nbsp;|&nbsp; Best Season: February – April, September – November</p>
+</div>
+</div>
+
+</section>
+
+<!-- RETREAT REGISTRATION -->
+<section>
+<h2>Register for a Wellness Retreat</h2>
+<div class="form-card">
+<form id="retreatForm" novalidate>
+<h3>Start Your Wellness Journey 🌿</h3>
+<div class="input-group">
+<input type="text" id="name" placeholder="Full Name">
+<small class="error" id="nameError"></small>
+</div>
+<div class="input-group">
+<input type="email" id="email" placeholder="Email Address">
+<small class="error" id="emailError"></small>
+</div>
+<div class="input-group">
+<select id="retreat">
+<option value="">Select Retreat</option>
+<option>Kerala Wellness Retreat</option>
+<option>Rishikesh Wellness Retreat</option>
+</select>
+<small class="error" id="retreatError"></small>
+</div>
+<div class="input-group">
+<select id="duration">
+<option value="">Preferred Duration</option>
+<option>3 Days</option>
+<option>5 Days</option>
+<option>7 Days</option>
+</select>
+<small class="error" id="durationError"></small>
+</div>
+<div class="input-group">
+<textarea id="message" placeholder="Your wellness goals..."></textarea>
+</div>
+<button type="submit" class="submit-btn">Register Now</button>
+</form>
+</div>
+</section>
+
+<!-- POPUP -->
+<div id="popup" class="popup">
+  <div class="popup-content">
+    <h3>Registration Successful 🎉</h3>
+    <p>We will contact you soon!</p>
+    <button onclick="closePopup()">OK</button>
+  </div>
+</div>
+
+<script>
+window.onload = function(){
+const form = document.getElementById("retreatForm");
+form.addEventListener("submit", function(e){
+  e.preventDefault();
+  let valid = true;
+  let name = document.getElementById("name");
+  let email = document.getElementById("email");
+  let retreat = document.getElementById("retreat");
+  let duration = document.getElementById("duration");
+  document.getElementById("nameError").innerText = "";
+  document.getElementById("emailError").innerText = "";
+  document.getElementById("retreatError").innerText = "";
+  document.getElementById("durationError").innerText = "";
+  if(name.value.trim() === ""){
+    document.getElementById("nameError").innerText = "Name is required";
+    valid = false;
+  }
+  if(email.value.trim() === ""){
+    document.getElementById("emailError").innerText = "Email is required";
+    valid = false;
+  } else if(!email.value.includes("@")){
+    document.getElementById("emailError").innerText = "Enter valid email";
+    valid = false;
+  }
+  if(retreat.value === ""){
+    document.getElementById("retreatError").innerText = "Select a retreat";
+    valid = false;
+  }
+  if(duration.value === ""){
+    document.getElementById("durationError").innerText = "Select duration";
+    valid = false;
+  }
+  if(valid){
+    document.getElementById("popup").classList.add("active");
+    form.reset();
+  }
+});
+};
+function closePopup(){
+  document.getElementById("popup").classList.remove("active");
+}
+
+// ===== DOSHA QUIZ =====
+var questions = [
+  { q: "How would you describe your body frame?", opts: [
+    { text: "Slim, light, and find it hard to gain weight", dosha: "vata" },
+    { text: "Medium, muscular, and moderately built", dosha: "pitta" },
+    { text: "Larger frame, tend to gain weight easily", dosha: "kapha" }
+  ]},
+  { q: "How is your sleep usually?", opts: [
+    { text: "Light, restless, or interrupted — I wake up easily", dosha: "vata" },
+    { text: "Moderate — I sleep well but can wake if stressed", dosha: "pitta" },
+    { text: "Deep and long — I could sleep for 9+ hours easily", dosha: "kapha" }
+  ]},
+  { q: "How do you handle stress?", opts: [
+    { text: "I feel anxious, worried, and overwhelmed quickly", dosha: "vata" },
+    { text: "I get irritable, intense, or frustrated", dosha: "pitta" },
+    { text: "I stay calm outwardly but may withdraw emotionally", dosha: "kapha" }
+  ]},
+  { q: "What describes your appetite best?", opts: [
+    { text: "Irregular — sometimes I forget to eat, other times very hungry", dosha: "vata" },
+    { text: "Strong and regular — I get irritable if I miss a meal", dosha: "pitta" },
+    { text: "Steady but slow — I can skip meals without much discomfort", dosha: "kapha" }
+  ]},
+  { q: "Which best describes your skin?", opts: [
+    { text: "Dry, thin, cool to touch, prone to cracking", dosha: "vata" },
+    { text: "Warm, oily in the T-zone, prone to redness or acne", dosha: "pitta" },
+    { text: "Smooth, soft, cool, slightly oily — rarely breaks out", dosha: "kapha" }
+  ]},
+  { q: "How do you approach work or learning?", opts: [
+    { text: "Creative and enthusiastic at first, but can lose focus", dosha: "vata" },
+    { text: "Driven, goal-focused, and competitive", dosha: "pitta" },
+    { text: "Steady, methodical, and thorough — I prefer routine", dosha: "kapha" }
+  ]}
+];
+
+var doshaData = {
+  vata: {
+    emoji: "🌬️", name: "Vata Dosha",
+    desc: "You are predominantly Vata — the energy of movement and creativity. You are quick-thinking, enthusiastic, and adaptable. Your challenge is grounding yourself when life feels scattered. Warmth, routine, and calming practices are your best friends.",
+    tips: ["Stick to a consistent daily routine — irregular schedules aggravate Vata","Favour warm, cooked, oily foods (ghee, soups, stews)","Practice grounding yoga: Tadasana, Balasana, forward folds","Avoid excessive travel, screen time, or multitasking","Aim for 7–8 hours of sleep — wind down before 10 PM"]
+  },
+  pitta: {
+    emoji: "🔥", name: "Pitta Dosha",
+    desc: "You are predominantly Pitta — the energy of transformation and intensity. You are focused, ambitious, and decisive. Your challenge is managing your inner fire. Cooling activities, relaxation, and balance are key for you.",
+    tips: ["Include cooling foods: cucumber, coconut, leafy greens, sweet fruits","Avoid overworking or skipping meals — Pitta burns fast","Favour moderate exercise: swimming, cycling, moon salutations","Practice loving-kindness meditation to soften inner criticism","Spend time near water or in nature — it cools Pitta energy"]
+  },
+  kapha: {
+    emoji: "🌱", name: "Kapha Dosha",
+    desc: "You are predominantly Kapha — the energy of stability and endurance. You are calm, loyal, and nurturing. Your challenge is overcoming inertia. Stimulating movement, light foods, and variety in your routine help you thrive.",
+    tips: ["Wake early (before 6 AM) and exercise vigorously each morning","Favour light, spiced, warm foods — avoid heavy or oily meals","Try Zumba, jogging, or dynamic yoga to energise the body","Vary your routine — Kapha benefits from new experiences","Use warming spices: ginger, turmeric, black pepper daily"]
+  }
+};
+
+var currentQ = 0;
+var scores = { vata: 0, pitta: 0, kapha: 0 };
+
+function renderQuestion() {
+  var q = questions[currentQ];
+  document.getElementById("quizQuestion").innerText = (currentQ + 1) + ". " + q.q;
+  document.getElementById("quizCounter").innerText = "Question " + (currentQ + 1) + " of " + questions.length;
+  document.getElementById("quizProgress").style.width = (currentQ / questions.length * 100) + "%";
+  document.getElementById("quizNext").disabled = true;
+  var optBox = document.getElementById("quizOptions");
+  optBox.innerHTML = "";
+  q.opts.forEach(function(opt) {
+    var btn = document.createElement("button");
+    btn.className = "quiz-option";
+    btn.innerText = opt.text;
+    btn.setAttribute("data-dosha", opt.dosha);
+    btn.onclick = function() {
+      document.querySelectorAll(".quiz-option").forEach(function(b){ b.classList.remove("selected"); });
+      btn.classList.add("selected");
+      document.getElementById("quizNext").disabled = false;
+    };
+    optBox.appendChild(btn);
+  });
+}
+
+function nextQuestion() {
+  var selected = document.querySelector(".quiz-option.selected");
+  if (!selected) return;
+  scores[selected.getAttribute("data-dosha")]++;
+  currentQ++;
+  if (currentQ < questions.length) {
+    renderQuestion();
+  } else {
+    var winner = Object.keys(scores).reduce(function(a, b){ return scores[a] >= scores[b] ? a : b; });
+    var data = doshaData[winner];
+    document.getElementById("quizBody").style.display = "none";
+    document.getElementById("quizResult").style.display = "block";
+    document.getElementById("resultEmoji").innerText = data.emoji;
+    document.getElementById("resultDosha").innerText = data.name;
+    document.getElementById("resultDesc").innerText = data.desc;
+    document.getElementById("quizProgress").style.width = "100%";
+    var ul = document.getElementById("resultTips");
+    ul.innerHTML = "";
+    data.tips.forEach(function(tip){ var li = document.createElement("li"); li.innerText = tip; ul.appendChild(li); });
+  }
+}
+
+function restartQuiz() {
+  currentQ = 0;
+  scores = { vata: 0, pitta: 0, kapha: 0 };
+  document.getElementById("quizResult").style.display = "none";
+  document.getElementById("quizBody").style.display = "block";
+  renderQuestion();
+}
+
+// ===== DAILY ROUTINE TABS =====
+function showRoutine(dosha, btn) {
+  document.querySelectorAll(".routine-panel").forEach(function(p){ p.classList.remove("active"); });
+  document.querySelectorAll(".routine-tab").forEach(function(t){ t.classList.remove("active"); });
+  document.getElementById("routine-" + dosha).classList.add("active");
+  btn.classList.add("active");
+}
+
+renderQuestion();
+</script>
+
+<footer>
+"Wellness is achieved through balance, consistency, and understanding your body's needs."
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us – FitAura</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#2d6a4f;
+  --green-mid:#40916c;
+  --green-light:#52b788;
+  --green-pale:#d8f3dc;
+  --gold:#c9a84c;
+  --cream:#f6f9f8;
+  --dark:#111a14;
+  --mid:#4a5568;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--dark);overflow-x:hidden;}
+ 
+/* NAV */
+.navbar{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 6%;background:rgba(255,255,255,0.95);
+  backdrop-filter:blur(16px);position:sticky;top:0;z-index:200;
+  box-shadow:0 2px 20px rgba(0,0,0,0.07);
+}
+.navbar h2{font-size:26px;font-weight:900;color:var(--green);letter-spacing:-0.5px;}
+.navbar h2 span{color:var(--gold);}
+.nav-links{display:flex;gap:28px;align-items:center;}
+.nav-links a{font-size:14px;font-weight:500;color:var(--mid);text-decoration:none;transition:color 0.3s;}
+.nav-links a:hover{color:var(--green);}
+.nav-links a.active{color:var(--green);font-weight:700;}
+.nav-cta{padding:10px 24px;background:var(--green);color:white!important;border-radius:50px;font-size:13.5px;font-weight:700;text-decoration:none;transition:all 0.3s;}
+.nav-cta:hover{background:var(--green-light);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
+.hamburger span{width:24px;height:2px;background:var(--dark);border-radius:2px;}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(17,26,20,0.97);z-index:190;flex-direction:column;align-items:center;justify-content:center;gap:32px;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{font-size:22px;font-weight:700;color:white;text-decoration:none;}
+.mobile-menu a:hover{color:var(--green-light);}
+.mobile-menu .close{position:absolute;top:20px;right:24px;font-size:32px;color:white;cursor:pointer;}
+ 
+/* HERO */
+.hero{
+  position:relative;height:58vh;min-height:360px;
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  background:linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.48)),
+    url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&q=80') center/cover no-repeat;
+  border-radius:0 0 48px 48px;overflow:hidden;
+}
+.hero-content{position:relative;z-index:2;animation:fadeUp 0.9s ease both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+.hero-eyebrow{display:inline-block;font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--green-light);background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);padding:7px 18px;border-radius:50px;margin-bottom:18px;}
+.hero h1{font-size:clamp(36px,6vw,64px);font-weight:900;color:white;letter-spacing:-1.5px;margin-bottom:12px;}
+.hero p{font-size:16px;color:rgba(255,255,255,0.75);max-width:460px;margin:0 auto;line-height:1.75;}
+ 
+/* SECTIONS */
+.section{padding:72px 7%;}
+.section-tag{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--green);margin-bottom:10px;}
+.section-title{font-size:clamp(26px,3.5vw,40px);font-weight:800;color:var(--dark);letter-spacing:-0.5px;line-height:1.25;margin-bottom:10px;}
+.section-sub{font-size:15px;color:var(--mid);max-width:640px;margin:0 auto;line-height:1.8;}
+ 
+/* MISSION */
+.mission{background:white;}
+.mission-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+.mission-img{border-radius:24px;overflow:hidden;position:relative;box-shadow:0 20px 60px rgba(45,106,79,0.15);}
+.mission-img img{width:100%;height:380px;object-fit:cover;display:block;}
+.mission-img .badge{position:absolute;bottom:20px;right:20px;background:white;border-radius:14px;padding:12px 18px;box-shadow:0 6px 24px rgba(0,0,0,0.12);font-size:13px;font-weight:700;color:var(--dark);}
+.mission-text h2{font-size:clamp(26px,3vw,38px);font-weight:800;color:var(--dark);letter-spacing:-0.5px;line-height:1.25;margin-bottom:16px;}
+.mission-text p{font-size:15px;color:var(--mid);line-height:1.85;margin-bottom:14px;}
+.value-chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;}
+.chip{padding:8px 18px;border-radius:50px;font-size:12.5px;font-weight:600;background:var(--green-pale);color:var(--green);}
+ 
+/* TEAM */
+.team{background:var(--cream);text-align:center;}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;max-width:960px;margin:40px auto 0;}
+.team-card{background:white;border-radius:24px;padding:36px 28px;box-shadow:0 8px 32px rgba(45,106,79,0.08);transition:transform 0.3s,box-shadow 0.3s;position:relative;overflow:hidden;}
+.team-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--green),var(--green-light));}
+.team-card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(45,106,79,0.15);}
+ 
+/* ═══════════════════════════════════════════════
+   PHOTO SLOT — replace src="jyothi.jpg" etc.
+   with your actual image filename.
+   Keep photos in the SAME folder as this HTML.
+   ═══════════════════════════════════════════════ */
+
+  .team-photo{
+  width:100%;
+  height:280px;
+  border-radius:18px;
+  object-fit:cover;
+  object-position:center top;
+  display:block;
+  margin-bottom:20px;
+
+  border:3px solid var(--green-light);
+  box-shadow:0 6px 24px rgba(45,106,79,0.25);
+}
+/* fallback initials circle — shows if photo file missing */
+.team-fallback{
+  width:120px;height:120px;border-radius:50%;
+  margin:0 auto 20px;
+  background:linear-gradient(135deg,#2d6a4f,#52b788);
+  display:none;align-items:center;justify-content:center;
+  font-size:36px;font-weight:900;color:white;
+  box-shadow:0 6px 24px rgba(45,106,79,0.25);
+}
+ 
+.team-card h3{font-size:18px;font-weight:800;color:var(--dark);margin-bottom:4px;}
+.team-card .roll{font-size:11px;font-weight:600;letter-spacing:2px;color:var(--green);text-transform:uppercase;margin-bottom:14px;}
+.team-card .role-tag{display:inline-block;padding:6px 16px;border-radius:50px;font-size:12px;font-weight:600;background:var(--green-pale);color:var(--green);margin-bottom:14px;}
+.team-card p{font-size:13px;color:var(--mid);line-height:1.7;}
+ 
+/* VALUES */
+.values{background:white;}
+.values-inner{max-width:1060px;margin:40px auto 0;}
+.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.value-card{background:var(--cream);border-radius:20px;padding:28px 24px;text-align:center;transition:transform 0.3s;}
+.value-card:hover{transform:translateY(-5px);}
+.value-icon{font-size:34px;margin-bottom:14px;}
+.value-card h4{font-size:15px;font-weight:700;color:var(--dark);margin-bottom:8px;}
+.value-card p{font-size:13px;color:var(--mid);line-height:1.65;}
+ 
+/* CONTACT */
+.contact{background:linear-gradient(135deg,var(--green) 0%,var(--green-mid) 100%);padding:72px 7%;text-align:center;}
+.contact h2{font-size:clamp(24px,3.5vw,40px);font-weight:800;color:white;margin-bottom:12px;letter-spacing:-0.5px;}
+.contact p{font-size:15px;color:rgba(255,255,255,0.78);margin-bottom:36px;max-width:480px;margin-left:auto;margin-right:auto;}
+.contact-cards{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;}
+.contact-card{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:24px 32px;min-width:200px;color:white;text-align:center;}
+.contact-card .icon{font-size:28px;margin-bottom:10px;}
+.contact-card h4{font-size:14px;font-weight:700;margin-bottom:4px;}
+.contact-card p{font-size:13px;color:rgba(255,255,255,0.7);margin:0;}
+ 
+/* FOOTER */
+.footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:40px 6%;}
+.footer-inner{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:32px;max-width:1100px;margin:0 auto 32px;}
+.footer-brand h3{font-size:22px;font-weight:900;color:white;margin-bottom:6px;}
+.footer-brand h3 span{color:var(--green-light);}
+.footer-brand p{font-size:13px;max-width:220px;line-height:1.7;}
+.footer-links h4{font-size:13px;font-weight:700;color:white;margin-bottom:14px;letter-spacing:1px;text-transform:uppercase;}
+.footer-links a{display:block;font-size:13px;color:rgba(255,255,255,0.5);text-decoration:none;margin-bottom:8px;transition:color 0.3s;}
+.footer-links a:hover{color:var(--green-light);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.07);padding-top:24px;text-align:center;font-size:13px;max-width:1100px;margin:0 auto;}
+.footer-bottom span{color:var(--green-light);}
+ 
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.65s,transform 0.65s;}
+.reveal.up{opacity:1;transform:none;}
+ 
+@media(max-width:800px){
+  .mission-inner{grid-template-columns:1fr;}
+  .team-grid{grid-template-columns:1fr;}
+  .values-grid{grid-template-columns:1fr 1fr;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+}
+@media(max-width:500px){
+  .values-grid{grid-template-columns:1fr;}
+  .footer-inner{flex-direction:column;}
+}
+</style>
+</head>
+<body> 
+ 
+<!-- NAVBAR -->
+<nav class="navbar">
+  <h2>Fit<span>Aura</span></h2>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="bmi (4).html">BMI</a>
+    <a href="web35_enhanced (1).html">Diet</a>
+    <a href="wellness (3).html">Wellness</a>
+    <a href="progress (2).html">Progress</a>
+    <a href="Aboutus.html" class="active">About Us</a>
+    <a href="bmi (4).html" class="nav-cta">Check BMI →</a>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+ 
+<div class="mobile-menu" id="mobileMenu">
+  <span class="close" onclick="toggleMenu()">✕</span>
+  <a href="index.html" onclick="toggleMenu()">Home</a>
+  <a href="bmi (4).html" onclick="toggleMenu()">BMI Calculator</a>
+  <a href="web35_enhanced (1).html" onclick="toggleMenu()">Diet Plans</a>
+  <a href="wellness (3).html" onclick="toggleMenu()">Wellness</a>
+  <a href="progress (2).html" onclick="toggleMenu()">Progress</a>
+  <a href="Aboutus.html" onclick="toggleMenu()">About Us</a>
+</div>
+ 
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">✦ Team B17</div>
+    <h1>About FitAura</h1>
+    <p>A wellness platform built with heart — combining science, Ayurveda, and simplicity for every body type.</p>
+  </div>
+</section>
+ 
+<!-- MISSION -->
+<section class="section mission">
+  <div class="mission-inner reveal">
+    <div class="mission-img">
+      <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=80" alt="Wellness" loading="lazy"/>
+      <div class="badge">🌿 Est. 2026</div>
+    </div>
+    <div class="mission-text">
+      <div class="section-tag">Our Mission</div>
+      <h2>Health That's Truly Personal</h2>
+      <p>FitAura was built on a simple belief — that health is not one-size-fits-all. We are a team of three students who wanted to create a platform that treats every person as an individual with unique body needs, energy patterns, and lifestyle goals.</p>
+      <p>We blend modern fitness science with the timeless wisdom of Ayurveda to help you find balance — not just physically, but mentally and holistically.</p>
+      <div class="value-chips">
+        <span class="chip">🌱 Bio-individuality</span>
+        <span class="chip">🧘 Mind-Body Balance</span>
+        <span class="chip">🥦 Vegetarian Friendly</span>
+        <span class="chip">📊 Evidence Based</span>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- TEAM -->
+<section class="section team">
+  <div class="section-tag reveal">Our Team</div>
+  <h2 class="section-title reveal">Meet the Builders</h2>
+  <p class="section-sub reveal">Three students, one shared vision — making wellness accessible and personal for everyone.</p>
+  <div class="team-grid">
+ 
+    <div class="team-card reveal" style="transition-delay:0s">
+      <!-- 📸 PHOTO 1: Replace "jyothi.jpg" with your actual image filename -->
+      <img class="team-photo" src="jyothi.jpg" alt="Jyothi S"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="team-fallback">JP</div>
+      <h3>Jyothi S</h3>
+      <div class="roll">AM.SC.U4AIE25162</div>
+      <div class="role-tag">🏠 Home & Contact Page</div>
+      <p>Designed the platform's first impression — the homepage and contact experience that welcomes every visitor into the FitAura world.</p>
+    </div>
+ 
+    <div class="team-card reveal" style="transition-delay:.1s">
+      <!-- 📸 PHOTO 2: Replace "anamika.jpg" with your actual image filename -->
+      <img class="team-photo" src="anamika.jpg" alt="Anamika P Vivekan"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="team-fallback">AP</div>
+      <h3>Anamika P Vivekan</h3>
+      <div class="roll">AM.SC.U4AIE25161</div>
+      <div class="role-tag">⚖️ BMI & Progress</div>
+      <p>Built the BMI calculator and progress tracking system — the core tools that help users measure and monitor their health journey.</p>
+    </div>
+ 
+    <div class="team-card reveal" style="transition-delay:.2s">
+      <!-- 📸 PHOTO 3: Replace "keerthana.jpg" with your actual image filename -->
+      <img class="team-photo" src="keerthana.jpg" alt="Keerthana Prasad"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="team-fallback">KP</div>
+      <h3>Keerthana Prasad</h3>
+      <div class="roll">AM.SC.U4AIE25118</div>
+      <div class="role-tag">🥦 Diet & Wellness</div>
+      <p>Crafted the diet charts, workout plans, Ayurvedic wellness profiles, and retreat programs — the heart of personalised guidance on FitAura.</p>
+    </div>
+ 
+  </div>
+</section>
+ 
+<!-- VALUES -->
+<section class="section values">
+  <div style="text-align:center;">
+    <div class="section-tag reveal">What We Stand For</div>
+    <h2 class="section-title reveal">Our Core Values</h2>
+  </div>
+  <div class="values-inner">
+    <div class="values-grid">
+      <div class="value-card reveal">
+        <div class="value-icon">🌿</div>
+        <h4>Holistic Wellness</h4>
+        <p>We address physical, mental, and nutritional health together — because they're inseparable.</p>
+      </div>
+      <div class="value-card reveal">
+        <div class="value-icon">🎯</div>
+        <h4>Personalisation</h4>
+        <p>Every recommendation is tailored to your body type, BMI, and Ayurvedic profile.</p>
+      </div>
+      <div class="value-card reveal">
+        <div class="value-icon">🚫</div>
+        <h4>No Extremes</h4>
+        <p>We promote sustainable habits — no crash diets, no extreme routines. Long-term balance is the goal.</p>
+      </div>
+      <div class="value-card reveal">
+        <div class="value-icon">🥦</div>
+        <h4>Vegetarian First</h4>
+        <p>All diet plans are pure vegetarian, rooted in Indian food culture and Ayurvedic nutrition.</p>
+      </div>
+      <div class="value-card reveal">
+        <div class="value-icon">📱</div>
+        <h4>Simplicity</h4>
+        <p>Clean design, easy navigation — we make health guidance accessible to everyone.</p>
+      </div>
+      <div class="value-card reveal">
+        <div class="value-icon">📈</div>
+        <h4>Progress Over Perfection</h4>
+        <p>Track your journey, celebrate small wins, and keep moving forward consistently.</p>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- CONTACT -->
+<section class="contact">
+  <h2 class="reveal">Get in Touch</h2>
+  <p class="reveal">Have feedback, questions, or ideas? We'd love to hear from you.</p>
+  <div class="contact-cards">
+    <div class="contact-card reveal" style="transition-delay:0s">
+      <div class="icon">🎓</div>
+      <h4>Institution</h4>
+      <p>Amrita School of Computing</p>
+    </div>
+    <div class="contact-card reveal" style="transition-delay:.1s">
+      <div class="icon">👥</div>
+      <h4>Group</h4>
+      <p>Team B17 · Web Design Project</p>
+    </div>
+    <div class="contact-card reveal" style="transition-delay:.2s">
+      <div class="icon">📅</div>
+      <h4>Year</h4>
+      <p>2025–2026 Batch</p>
+    </div>
+  </div>
+</section>
+ 
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h3>Fit<span>Aura</span></h3>
+      <p>Where Fitness Meets Balance. Your personal health & wellness companion.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Pages</h4>
+      <a href="index.html">Home</a>
+      <a href="bmi (4).html">BMI Calculator</a>
+      <a href="web35_enhanced (1).html">Diet Plans</a>
+      <a href="wellness (3).html">Wellness & Workouts</a>
+      <a href="progress (2).html">Progress</a>
+      <a href="Aboutus.html">About Us</a>
+    </div>
+    <div class="footer-links">
+      <h4>Team</h4>
+      <a href="#">Jyothi S</a>
+      <a href="#">Anamika P Vivekan</a>
+      <a href="#">Keerthana Prasad</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 <span>FitAura</span> | Team B17 — Anamika · Jyothi · Keerthana</p>
+  </div>
+</footer>
+ 
+<script>
+function toggleMenu(){
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('up');}),{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html> 
